@@ -2,8 +2,10 @@ package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.Client;
+import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -66,6 +68,41 @@ public class MainVIewController {
             addressLabel.setText("");
             provinceLabel.setText("");
             townLabel.setText("");
+        }
+    }
+
+
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    private void handleDeleteClient() throws ExceptionClient{
+        int selectedIndex = clientTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0){
+            Client client = clientTable.getItems().get(selectedIndex);
+            model.deleteClienteVO(client);
+            clientTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("No seleccionado");
+            alert.setContentText("No has seleccionado ningún cliente");
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new client.
+     */
+    @FXML
+    private void handleNewClient() throws ExceptionClient {
+        Client tempCLient = new Client();
+        boolean okClicked = mainApp.showNewClient(tempCLient);
+        if (okClicked) {
+            mainApp.getClientData().add(tempCLient); //Añade a la ObservableList de personas
+            model.addClienteVO(mainApp.getConverter().convertClient(tempCLient));
         }
     }
 

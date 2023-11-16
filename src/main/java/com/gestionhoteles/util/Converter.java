@@ -16,6 +16,17 @@ public class Converter {
         return clients;
     }
 
+    public ClientVO convertClient(Client client){
+        return new ClientVO(
+                client.getDni(),
+                client.getName(),
+                client.getLastName(),
+                client.getAddres(),
+                client.getTown(),
+                client.getProvince()
+        );
+    }
+
     public Client convertClientVO(ClientVO clientVO){
         return new Client(
                 clientVO.getDni(),

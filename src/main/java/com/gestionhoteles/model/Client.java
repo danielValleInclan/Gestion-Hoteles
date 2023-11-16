@@ -16,6 +16,10 @@ public class Client {
         this.province = new SimpleStringProperty(province);
     }
 
+    public Client(){
+        this(null, null,null,null,null,null);
+    }
+
     public String getDni() {
         return dni.get();
     }

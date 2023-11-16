@@ -53,11 +53,11 @@
                         <Label fx:id="provinceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <Group layoutX="317.0" layoutY="38.0">
+                  <Group layoutX="279.0" layoutY="38.0">
                      <children>
-                        <Button fx:id="bCrearCliente" mnemonicParsing="false" text="Dar Alata" />
-                        <Button fx:id="bEditarCliente" layoutY="42.0" mnemonicParsing="false" text="Editar" />
-                        <Button fx:id="bEliminarCliente" layoutY="82.0" mnemonicParsing="false" text="Dar Baja" />
+                        <Button fx:id="bCrearCliente" mnemonicParsing="false" onAction="#handleNewClient" text="Nuevo cliente ..." />
+                        <Button fx:id="bEditarCliente" layoutX="23.0" layoutY="42.0" mnemonicParsing="false" text="Modificar" />
+                        <Button fx:id="bEliminarCliente" layoutX="25.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleDeleteClient" text="Dar Baja" />
                      </children>
                   </Group>
                </children>

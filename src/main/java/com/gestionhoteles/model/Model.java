@@ -1,6 +1,7 @@
 package com.gestionhoteles.model;
 
 import com.gestionhoteles.model.repository.Repository;
+import com.gestionhoteles.util.Converter;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,8 @@ public class Model {
         repository.addClienteVO(clientVO);
     }
 
-    public void deleteClienteVO(String dni) throws ExceptionClient {
-        repository.deleteClienteVO(dni);
+    public void deleteClienteVO(Client client) throws ExceptionClient {
+        repository.deleteClienteVO(client.getDni());
     }
 
     public void editClienteVO(ClientVO clientVO, String dni) throws ExceptionClient {

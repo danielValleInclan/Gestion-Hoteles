@@ -1,5 +1,6 @@
 package com.gestionhoteles;
 
+import com.gestionhoteles.controller.NewClient;
 import com.gestionhoteles.controller.MainVIewController;
 import com.gestionhoteles.controller.RootLayoutController;
 import com.gestionhoteles.model.Client;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,6 +30,9 @@ public class MainApp extends Application {
     private ObservableList<Client> clientsData = FXCollections.observableArrayList();
     Converter converter = new Converter();
 
+    public Converter getConverter(){
+        return converter;
+    }
 
     public MainApp(){
         Repository repository = new RepositoryImpl();
@@ -96,6 +101,35 @@ public class MainApp extends Application {
             throw new RuntimeException();
         }
 
+    }
+
+    public boolean showNewClient(Client client){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("NewClient.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Nuevo Cliente");
+            dialogStage.initModality(Modality.NONE);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            NewClient controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setModel(model);
+            controller.setClient(client);
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
     public static void main(String[] args) {
         launch();
