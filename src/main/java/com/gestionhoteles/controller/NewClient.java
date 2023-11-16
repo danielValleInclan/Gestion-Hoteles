@@ -50,7 +50,7 @@ public class NewClient {
         if (tfLastName.getText() == null || tfLastName.getText().isEmpty()) errorMessage += "DNI inválido! \n";
         if (tfAddress.getText() == null || tfAddress.getText().isEmpty()) errorMessage += "Dirección inválida! \n";
         if (tfTown.getText() == null || tfTown.getText().isEmpty()) errorMessage += "Localidad inválida!! \n";
-        if (tfProvince.getText() == null || tfProvince.getText().isEmpty()) errorMessage += "Provincia! \n";
+        if (tfProvince.getText() == null || tfProvince.getText().isEmpty()) errorMessage += "Provincia inválida! \n";
         if (errorMessage.isEmpty()){
             return true;
         } else {
@@ -58,7 +58,7 @@ public class NewClient {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Campos incorrectos");
-            alert.setContentText("Por favor introduce datos válidos");
+            alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;
         }

@@ -2,13 +2,11 @@ package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.Client;
+import com.gestionhoteles.model.ClientVO;
 import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class MainVIewController {
     private MainApp mainApp;
@@ -21,13 +19,17 @@ public class MainVIewController {
     @FXML
     private TableColumn<Client, String> lastNameColumn;
     @FXML
-    private Label dniLabel;
+    private TextField tfDNI;
     @FXML
-    private Label addressLabel;
+    private TextField tfName;
     @FXML
-    private Label townLabel;
+    private TextField tfLastName;
     @FXML
-    private Label provinceLabel;
+    private TextField tfAddress;
+    @FXML
+    private TextField tfTown;
+    @FXML
+    private TextField tfProvince;
 
 
     /**
@@ -54,20 +56,29 @@ public class MainVIewController {
                 (observableValue, oldValue, newValue) -> showClientDetails(newValue)));
     }
 
+    @FXML
+    private void showDefaultDetails(){
+        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        if (selectClient != null){
+            showClientDetails(selectClient);
+        }
+    }
 
     private void showClientDetails(Client client){
         if (client != null){
             // Rellena la tabla con la información del cliente
-            dniLabel.setText(client.getName());
-            addressLabel.setText(client.getAddres());
-            provinceLabel.setText(client.getProvince());
-            townLabel.setText(client.getTown());
+            tfDNI.setText(client.getDni());
+            tfName.setText(client.getName());
+            tfLastName.setText(client.getName());
+            tfAddress.setText(client.getAddres());
+            tfProvince.setText(client.getProvince());
+            tfTown.setText(client.getTown());
         } else {
             // Cliente es nulo elimina el texto
-            dniLabel.setText("");
-            addressLabel.setText("");
-            provinceLabel.setText("");
-            townLabel.setText("");
+            tfDNI.setText("");
+            tfAddress.setText("");
+            tfProvince.setText("");
+            tfTown.setText("");
         }
     }
 
@@ -106,6 +117,34 @@ public class MainVIewController {
         }
     }
 
+
+    @FXML
+    private void handleEditClient() throws ExceptionClient {
+        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        if (selectClient != null && !model.comprobarDNI(tfDNI.getText())){
+            ClientVO clientVO = mainApp.getConverter().convertClient(selectClient);
+            clientVO.setDni(tfDNI.getText());
+            clientVO.setName(tfName.getText());
+            clientVO.setLastName(tfLastName.getText());
+            clientVO.setAddress(tfAddress.getText());
+            clientVO.setTown(tfTown.getText());
+            clientVO.setProvince(tfProvince.getText());
+            model.editClienteVO(clientVO, selectClient.getDni());
+        } else if (model.comprobarDNI(tfDNI.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Cliente existe");
+            alert.setContentText("Ya existe un cliente con ese dni");
+            alert.showAndWait();
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("No seleccionado");
+            alert.setContentText("No has seleccionado ningún Cliente");
+            alert.showAndWait();
+        }
+    }
 
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;

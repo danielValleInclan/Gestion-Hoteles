@@ -161,6 +161,8 @@ public class RepositoryImpl implements Repository {
                     clientVO.getProvince(),
                     dni);
             command.executeUpdate(sql);
+            command.close();
+            this.stmt.close();
             this.connectionJDBC.disconnectDB(conn);
         } catch (SQLException e) {
             throw new ExceptionClient("No se ha podido realizar la operación");
