@@ -39,7 +39,7 @@ public class Model {
         return this.repository.GetListBookingVO();
     }
 
-    public void setClientRepository(Repository repository){
+    public void setRepository(Repository repository){
         this.repository = repository;
     }
 }
