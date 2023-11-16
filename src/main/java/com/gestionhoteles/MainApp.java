@@ -3,7 +3,12 @@ package com.gestionhoteles;
 import com.gestionhoteles.controller.MainVIewController;
 import com.gestionhoteles.controller.RootLayoutController;
 import com.gestionhoteles.model.Client;
+import com.gestionhoteles.model.ClientVO;
+import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
+import com.gestionhoteles.model.repository.Repository;
+import com.gestionhoteles.model.repository.impl.RepositoryImpl;
+import com.gestionhoteles.util.Converter;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +19,29 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private final Model model = new Model();
-
     private ObservableList<Client> clientsData = FXCollections.observableArrayList();
+    Converter converter = new Converter();
 
+
+    public MainApp(){
+        Repository repository = new RepositoryImpl();
+        model.setRepository(repository);
+
+        try {
+            ArrayList<ClientVO> clientVOS = model.GetListClienteVO();
+            ArrayList<Client> clients = converter.convertListCVO(clientVOS);
+            clientsData.addAll(clients);
+        } catch (ExceptionClient e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
     public ObservableList<Client> getClientData() {

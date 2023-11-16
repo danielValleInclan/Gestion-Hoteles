@@ -1,18 +1,19 @@
 package com.gestionhoteles.model;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Client {
 
     private final StringProperty dni, name, lastName, addres, town, province;
 
-    public Client(StringProperty dni, StringProperty name, StringProperty lastName, StringProperty addres, StringProperty town, StringProperty province) {
-        this.dni = dni;
-        this.name = name;
-        this.lastName = lastName;
-        this.addres = addres;
-        this.town = town;
-        this.province = province;
+    public Client(String dni, String name, String lastName, String addres, String town, String province) {
+        this.dni = new SimpleStringProperty(dni);
+        this.name = new SimpleStringProperty(name);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.addres = new SimpleStringProperty(addres);
+        this.town = new SimpleStringProperty(town);
+        this.province = new SimpleStringProperty(province);
     }
 
     public String getDni() {
