@@ -7,6 +7,11 @@ import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainVIewController {
     private MainApp mainApp;
@@ -19,7 +24,7 @@ public class MainVIewController {
     @FXML
     private TableColumn<Client, String> lastNameColumn;
     @FXML
-    private TextField tfDNI;
+    private Label lDni;
     @FXML
     private TextField tfName;
     @FXML
@@ -30,6 +35,8 @@ public class MainVIewController {
     private TextField tfTown;
     @FXML
     private TextField tfProvince;
+    @FXML
+    private ImageView ivCheckEdit;
 
 
     /**
@@ -67,15 +74,17 @@ public class MainVIewController {
     private void showClientDetails(Client client){
         if (client != null){
             // Rellena la tabla con la información del cliente
-            tfDNI.setText(client.getDni());
+            lDni.setText(client.getDni());
             tfName.setText(client.getName());
-            tfLastName.setText(client.getName());
+            tfLastName.setText(client.getLastName());
             tfAddress.setText(client.getAddres());
             tfProvince.setText(client.getProvince());
             tfTown.setText(client.getTown());
         } else {
             // Cliente es nulo elimina el texto
-            tfDNI.setText("");
+            lDni.setText("");
+            tfName.setText("");
+            tfLastName.setText("");
             tfAddress.setText("");
             tfProvince.setText("");
             tfTown.setText("");
@@ -121,21 +130,23 @@ public class MainVIewController {
     @FXML
     private void handleEditClient() throws ExceptionClient {
         Client selectClient = clientTable.getSelectionModel().getSelectedItem();
-        if (selectClient != null && !model.comprobarDNI(tfDNI.getText())){
+        if (selectClient != null){
             ClientVO clientVO = mainApp.getConverter().convertClient(selectClient);
-            clientVO.setDni(tfDNI.getText());
+            clientVO.setDni(lDni.getText());
             clientVO.setName(tfName.getText());
             clientVO.setLastName(tfLastName.getText());
             clientVO.setAddress(tfAddress.getText());
             clientVO.setTown(tfTown.getText());
             clientVO.setProvince(tfProvince.getText());
             model.editClienteVO(clientVO, selectClient.getDni());
-        } else if (model.comprobarDNI(tfDNI.getText())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Cliente existe");
-            alert.setContentText("Ya existe un cliente con ese dni");
-            alert.showAndWait();
+            for (Client c: mainApp.getClientData()){
+                if (c.equals(selectClient)){
+                    mainApp.getClientData().remove(c);
+                    c = mainApp.getConverter().convertClientVO(clientVO);
+                    mainApp.getClientData().add(c);
+                }
+            }
+            ivCheckEdit.setVisible(true);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

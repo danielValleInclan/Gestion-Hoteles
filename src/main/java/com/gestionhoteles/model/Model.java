@@ -27,15 +27,6 @@ public class Model {
         repository.deleteClienteVO(client.getDni());
     }
 
-
-    public boolean comprobarDNI(String dni) throws ExceptionClient {
-        ArrayList<ClientVO> clientVOS = GetListClienteVO();
-        for (ClientVO c : clientVOS){
-            if (c.getDni().equals(dni)) return true;
-        }
-        return false;
-    }
-
     public void editClienteVO(ClientVO clientVO, String dni) throws ExceptionClient {
         repository.editClienteVO(clientVO, dni);
     }
