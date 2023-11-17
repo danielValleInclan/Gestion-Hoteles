@@ -1,8 +1,11 @@
 package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
+import com.gestionhoteles.model.Booking;
 import com.gestionhoteles.model.Client;
 import com.gestionhoteles.model.Model;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 public class BookingController {
@@ -20,6 +23,26 @@ public class BookingController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    private void showDetailsBooking(Booking booking){
+        if (booking != null){
+
+        }
+    }
+    @FXML
+    private void handleNewBooking() {
+    }
+    @FXML
+    private void handleEditBooking() {
+    }
+    @FXML
+    private void handleDeleteBooking() {
+    }
+    @FXML
+    private void showDefaultDetails() {
+    }
+
+
 
     public Client getClient() {
         return client;
