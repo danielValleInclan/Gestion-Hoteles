@@ -33,6 +33,8 @@ public class MainVIewController {
     private TextField tfProvince;
     @FXML
     private ImageView ivCheckEdit;
+    @FXML
+    private Button bBooking;
 
 
     /**
@@ -85,6 +87,7 @@ public class MainVIewController {
             tfProvince.setText("");
             tfTown.setText("");
         }
+        ivCheckEdit.setVisible(false);
     }
 
 
@@ -151,6 +154,26 @@ public class MainVIewController {
             alert.setContentText("No has seleccionado ningún Cliente");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    private void openBooking(){
+        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        if (selectClient != null){
+            mainApp.showBookingView(selectClient);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("No seleccionado");
+            alert.setContentText("No has seleccionado ningún Cliente");
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void handleSerachBooking(){
+
+       // mainApp.showBookingView();
     }
 
     public void setMainApp(MainApp mainApp){

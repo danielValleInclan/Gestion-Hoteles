@@ -1,12 +1,10 @@
 package com.gestionhoteles;
 
+import com.gestionhoteles.controller.BookingController;
 import com.gestionhoteles.controller.NewClient;
 import com.gestionhoteles.controller.MainVIewController;
 import com.gestionhoteles.controller.RootLayoutController;
-import com.gestionhoteles.model.Client;
-import com.gestionhoteles.model.ClientVO;
-import com.gestionhoteles.model.ExceptionClient;
-import com.gestionhoteles.model.Model;
+import com.gestionhoteles.model.*;
 import com.gestionhoteles.model.repository.Repository;
 import com.gestionhoteles.model.repository.impl.RepositoryImpl;
 import com.gestionhoteles.util.Converter;
@@ -28,6 +26,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     private final Model model = new Model();
     private ObservableList<Client> clientsData = FXCollections.observableArrayList();
+    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     Converter converter = new Converter();
 
     public Converter getConverter(){
@@ -42,6 +41,9 @@ public class MainApp extends Application {
             ArrayList<ClientVO> clientVOS = model.GetListClienteVO();
             ArrayList<Client> clients = converter.convertListCVO(clientVOS);
             clientsData.addAll(clients);
+            ArrayList<BookingVO> bookingVOS = model.GetListBookingVO();
+            ArrayList<Booking> bookings = converter.convertListBVO(bookingVOS);
+            bookingData.addAll(bookings);
         } catch (ExceptionClient e) {
             throw new RuntimeException(e);
         }
@@ -127,6 +129,33 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+    public void showBookingView (Client client){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("BookingView.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Reservas");
+            dialogStage.initModality(Modality.NONE);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            BookingController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setStage(dialogStage);
+            controller.setModel(model);
+            controller.setClient(client);
+
+            dialogStage.showAndWait();
         } catch (IOException e) {
             throw new RuntimeException();
         }

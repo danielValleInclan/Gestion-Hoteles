@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -49,7 +50,7 @@
                         <Label text="Apellidol" GridPane.rowIndex="2" />
                         <TextField fx:id="tfName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="tfLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfDNI" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfDNI" editable="false" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <Button fx:id="bCrearCliente" layoutX="190.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleNewClient" text="Nuevo cliente ..." />
@@ -60,6 +61,7 @@
                      <image>
                         <Image url="@check.png" />
                      </image></ImageView>
+                  <Button fx:id="bBooking" layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#openBooking" text="Abrir reservas" />
                </children>
             </AnchorPane>
         </items>

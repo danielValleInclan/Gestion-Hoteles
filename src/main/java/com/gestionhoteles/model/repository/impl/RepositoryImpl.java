@@ -151,9 +151,8 @@ public class RepositoryImpl implements Repository {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
             Statement command = conn.createStatement();
-            String sql = String.format("UPDATE Client SET dni = '%s', name = '%s', lastName = '%s', address = '%s', " +
+            String sql = String.format("UPDATE Client SET name = '%s', lastName = '%s', address = '%s', " +
                     "town = '%s', province = '%s' WHERE dni = '%s'",
-                    clientVO.getDni(),
                     clientVO.getName(),
                     clientVO.getLastName(),
                     clientVO.getAddress(),
@@ -161,6 +160,7 @@ public class RepositoryImpl implements Repository {
                     clientVO.getProvince(),
                     dni);
             command.executeUpdate(sql);
+
             command.close();
             this.stmt.close();
             this.connectionJDBC.disconnectDB(conn);
