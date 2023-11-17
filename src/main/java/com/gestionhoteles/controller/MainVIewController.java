@@ -7,11 +7,7 @@ import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class MainVIewController {
     private MainApp mainApp;
@@ -24,7 +20,7 @@ public class MainVIewController {
     @FXML
     private TableColumn<Client, String> lastNameColumn;
     @FXML
-    private Label lDni;
+    private TextField tfDNI;
     @FXML
     private TextField tfName;
     @FXML
@@ -74,7 +70,7 @@ public class MainVIewController {
     private void showClientDetails(Client client){
         if (client != null){
             // Rellena la tabla con la información del cliente
-            lDni.setText(client.getDni());
+            tfDNI.setText(client.getDni());
             tfName.setText(client.getName());
             tfLastName.setText(client.getLastName());
             tfAddress.setText(client.getAddres());
@@ -82,7 +78,7 @@ public class MainVIewController {
             tfTown.setText(client.getTown());
         } else {
             // Cliente es nulo elimina el texto
-            lDni.setText("");
+            tfDNI.setText("");
             tfName.setText("");
             tfLastName.setText("");
             tfAddress.setText("");
@@ -132,7 +128,7 @@ public class MainVIewController {
         Client selectClient = clientTable.getSelectionModel().getSelectedItem();
         if (selectClient != null){
             ClientVO clientVO = mainApp.getConverter().convertClient(selectClient);
-            clientVO.setDni(lDni.getText());
+            clientVO.setDni(tfDNI.getText());
             clientVO.setName(tfName.getText());
             clientVO.setLastName(tfLastName.getText());
             clientVO.setAddress(tfAddress.getText());
