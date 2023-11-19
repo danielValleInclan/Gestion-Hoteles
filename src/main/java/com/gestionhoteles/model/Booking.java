@@ -3,6 +3,8 @@ package com.gestionhoteles.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
+
 public class Booking {
     private StringProperty id, nRoom, smoke, arrivalDate, departureDate, clientDni, typeRoom, regime;
 
@@ -45,8 +47,9 @@ public class Booking {
         this.nRoom.set(nRoom);
     }
 
-    public String getSmoke() {
-        return smoke.get();
+    public boolean getSmoke() {
+        String string = this.smoke.toString();
+        return Boolean.parseBoolean(string);
     }
 
     public StringProperty smokeProperty() {
@@ -57,8 +60,9 @@ public class Booking {
         this.smoke.set(smoke);
     }
 
-    public String getArrivalDate() {
-        return arrivalDate.get();
+    public LocalDate getArrivalDate() {
+        LocalDate localDate = LocalDate.parse(arrivalDate.get());
+        return localDate;
     }
 
     public StringProperty arrivalDateProperty() {
@@ -69,8 +73,9 @@ public class Booking {
         this.arrivalDate.set(arrivalDate);
     }
 
-    public String getDepartureDate() {
-        return departureDate.get();
+    public LocalDate getDepartureDate() {
+        LocalDate localDate = LocalDate.parse(departureDate.get());
+        return localDate;
     }
 
     public StringProperty departureDateProperty() {
@@ -93,8 +98,8 @@ public class Booking {
         this.clientDni.set(clientDni);
     }
 
-    public String getTypeRoom() {
-        return typeRoom.get();
+    public TypeRoom getTypeRoom() {
+        return TypeRoom.valueOf(typeRoom.get());
     }
 
     public StringProperty typeRoomProperty() {
@@ -105,8 +110,8 @@ public class Booking {
         this.typeRoom.set(typeRoom);
     }
 
-    public String getRegime() {
-        return regime.get();
+    public Regime getRegime() {
+        return Regime.valueOf(regime.get());
     }
 
     public StringProperty regimeProperty() {

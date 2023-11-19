@@ -22,6 +22,9 @@ public class BookingVO {
         this.regime = regime;
     }
 
+    public BookingVO(){
+    }
+
     public String getStringTRoom(){
         return typeRoom.name();
     }

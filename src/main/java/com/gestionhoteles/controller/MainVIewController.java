@@ -5,9 +5,12 @@ import com.gestionhoteles.model.Client;
 import com.gestionhoteles.model.ClientVO;
 import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+
+import java.util.Iterator;
 
 public class MainVIewController {
     private MainApp mainApp;
@@ -61,9 +64,14 @@ public class MainVIewController {
                 (observableValue, oldValue, newValue) -> showClientDetails(newValue)));
     }
 
+
+    private Client getSelectClient(){
+        return clientTable.getSelectionModel().getSelectedItem();
+    }
+
     @FXML
     private void showDefaultDetails(){
-        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        Client selectClient = getSelectClient();
         if (selectClient != null){
             showClientDetails(selectClient);
         }
@@ -128,7 +136,7 @@ public class MainVIewController {
 
     @FXML
     private void handleEditClient() throws ExceptionClient {
-        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        Client selectClient = getSelectClient();
         if (selectClient != null){
             ClientVO clientVO = mainApp.getConverter().convertClient(selectClient);
             clientVO.setDni(tfDNI.getText());
@@ -138,14 +146,16 @@ public class MainVIewController {
             clientVO.setTown(tfTown.getText());
             clientVO.setProvince(tfProvince.getText());
             model.editClienteVO(clientVO, selectClient.getDni());
-            for (Client c: mainApp.getClientData()){
-                if (c.equals(selectClient)){
-                    mainApp.getClientData().remove(c);
-                    c = mainApp.getConverter().convertClientVO(clientVO);
-                    mainApp.getClientData().add(c);
+            ivCheckEdit.setVisible(true); // Muestra imagen de modificado
+            Iterator<Client> iterator = mainApp.getClientData().iterator();
+            while (iterator.hasNext()) {
+                Client client = iterator.next();
+                // Realizar operaciones en cliente
+                if (client.equals(selectClient)) {
+                    iterator.remove(); // Elimina el cliente de la lista
+                    mainApp.getClientData().add(mainApp.getConverter().convertClientVO(clientVO));
                 }
             }
-            ivCheckEdit.setVisible(true);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -158,7 +168,7 @@ public class MainVIewController {
 
     @FXML
     private void openBooking(){
-        Client selectClient = clientTable.getSelectionModel().getSelectedItem();
+        Client selectClient = getSelectClient();
         if (selectClient != null){
             mainApp.showBookingView(selectClient);
         } else {

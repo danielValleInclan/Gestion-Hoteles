@@ -55,6 +55,10 @@ public class MainApp extends Application {
         return clientsData;
     }
 
+    public ObservableList<Booking> getBookingData() {
+        return bookingData;
+    }
+
     @Override
     public void start(Stage stage) {
         this.primaryStage = stage;

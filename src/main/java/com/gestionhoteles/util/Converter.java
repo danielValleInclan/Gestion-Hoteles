@@ -53,12 +53,26 @@ public class Converter {
         String nRoom = String.valueOf(bookingVO.getnRoom());
         Booking booking = new Booking();
         booking.setId(id);
-        booking.setArrivalDate(nRoom);
+        booking.setArrivalDate(bookingVO.getArrivalDate().toString());
         booking.setDepartureDate(bookingVO.getDepartureDate().toString());
         booking.setnRoom(bookingVO.getnRoom()+"");
         booking.setTypeRoom(bookingVO.getStringTRoom());
         booking.setRegime(bookingVO.getStringRegime());
         booking.setClientDni(bookingVO.getClientDni());
         return booking;
+    }
+
+    public BookingVO convertBooking(Booking booking){
+        int id = Integer.parseInt(booking.getId());
+        String nRoom = String.valueOf(booking.getnRoom());
+        BookingVO bookingVO = new BookingVO();
+        bookingVO.setId(id);
+        bookingVO.setArrivalDate(bookingVO.getArrivalDate());
+        bookingVO.setDepartureDate(bookingVO.getDepartureDate());
+        bookingVO.setnRoom(bookingVO.getnRoom());
+        bookingVO.setTypeRoom(bookingVO.getTypeRoom());
+        bookingVO.setRegime(bookingVO.getRegime());
+        bookingVO.setClientDni(bookingVO.getClientDni());
+        return bookingVO;
     }
 }
