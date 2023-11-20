@@ -6,6 +6,7 @@ import com.gestionhoteles.model.Client;
 import com.gestionhoteles.model.ClientVO;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Converter {
@@ -53,8 +54,8 @@ public class Converter {
         String nRoom = String.valueOf(bookingVO.getnRoom());
         Booking booking = new Booking();
         booking.setId(id);
-        booking.setArrivalDate(bookingVO.getArrivalDate().toString());
-        booking.setDepartureDate(bookingVO.getDepartureDate().toString());
+        booking.setArrivalDate(String.valueOf(bookingVO.getArrivalDate()));
+        booking.setDepartureDate(String.valueOf(bookingVO.getDepartureDate()));
         booking.setnRoom(bookingVO.getnRoom()+"");
         booking.setTypeRoom(bookingVO.getStringTRoom());
         booking.setRegime(bookingVO.getStringRegime());
@@ -63,16 +64,13 @@ public class Converter {
     }
 
     public BookingVO convertBooking(Booking booking){
-        int id = Integer.parseInt(booking.getId());
-        String nRoom = String.valueOf(booking.getnRoom());
         BookingVO bookingVO = new BookingVO();
-        bookingVO.setId(id);
-        bookingVO.setArrivalDate(bookingVO.getArrivalDate());
-        bookingVO.setDepartureDate(bookingVO.getDepartureDate());
-        bookingVO.setnRoom(bookingVO.getnRoom());
-        bookingVO.setTypeRoom(bookingVO.getTypeRoom());
-        bookingVO.setRegime(bookingVO.getRegime());
-        bookingVO.setClientDni(bookingVO.getClientDni());
+        bookingVO.setArrivalDate(LocalDate.parse(booking.getArrivalDate()));
+        bookingVO.setDepartureDate(booking.getDepartureDate());
+        bookingVO.setnRoom(booking.getnRoom());
+        bookingVO.setTypeRoom(booking.getTypeRoom());
+        bookingVO.setRegime(booking.getRegime());
+        bookingVO.setClientDni(booking.getClientDni());
         return bookingVO;
     }
 }

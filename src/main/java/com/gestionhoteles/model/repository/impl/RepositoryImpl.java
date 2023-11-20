@@ -98,10 +98,9 @@ public class RepositoryImpl implements Repository {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
-            this.sentence = String.format("INSERT INTO Booking (id, arrivalDate, departureDate, nRoom, typeRoom, smoke," +
+            this.sentence = String.format("INSERT INTO Booking (arrivalDate, departureDate, nRoom, typeRoom, smoke," +
                             " regime, client) " +
-                            "VALUES (%d, '%s', '%s', %d, '%s', %b, '%s', '%s')",
-                    bookingVO.getId(),
+                            "VALUES ('%s', '%s', %d, '%s', %b, '%s', '%s')",
                     bookingVO.getArrivalDate(),
                     bookingVO.getDepartureDate(),
                     bookingVO.getnRoom(),

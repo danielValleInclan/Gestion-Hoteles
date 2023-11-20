@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 
 public class BookingController {
@@ -33,6 +35,8 @@ public class BookingController {
     private ChoiceBox<TypeRoom> cbTypeRoom;
     @FXML
     private ChoiceBox<Regime> cbRegime;
+    @FXML
+    private ImageView ivCheckEdit;
 
     /**
      * The constructor.
@@ -49,7 +53,8 @@ public class BookingController {
         // Establece la lista de opciones en el ChoiceBox
         cbTypeRoom.setItems(typeRooms);
         cbRegime.setItems(regimes);
-        // Initialize the person table with the two columns.
+
+        // Initialize the booking table with the two columns.
         cID.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         cDate.setCellValueFactory(cellData -> cellData.getValue().arrivalDateProperty());
 
@@ -81,7 +86,7 @@ public class BookingController {
 
     private void showDetailsBooking(Booking booking){
         if (booking != null){
-            dpArriveDate.setValue(booking.getArrivalDate());
+            dpArriveDate.setValue(LocalDate.parse(booking.getArrivalDate()));
             dpDepartureDate.setValue(booking.getDepartureDate());
             cbSmoke.setSelected(booking.getSmoke());
             cbTypeRoom.setValue(booking.getTypeRoom());
@@ -94,10 +99,16 @@ public class BookingController {
             cbTypeRoom.setValue(null);
             cbRegime.setValue(null);
         }
+        ivCheckEdit.setVisible(false);
     }
     @FXML
     private void handleNewBooking() {
-
+        Booking tempBooking = new Booking();
+        boolean okClicked = mainApp.showNewBooking(tempBooking, client);
+        if (okClicked) {
+            mainApp.getBookingData().add(tempBooking); //Añade a la ObservableList de reservas
+            model.addBookingVO(mainApp.getConverter().convertBooking(tempBooking));
+        }
     }
     @FXML
     private void handleEditBooking() {
@@ -110,15 +121,16 @@ public class BookingController {
             bookingVO.setTypeRoom(cbTypeRoom.getValue());
             bookingVO.setRegime(cbRegime.getValue());
             bookingVO.setClientDni(client.getDni());
+            bookingVO.setnRoom(1);
             model.editBookingVO(bookingVO, bookingVO.getId());
-            Iterator<Booking> iterator = mainApp.getBookingData().iterator();
-            while (iterator.hasNext()) {
-                Booking booking = iterator.next();
-                // Realizar operaciones en cliente
-                if (client.equals(selectBooking)) {
-                    iterator.remove(); // Elimina el cliente de la lista
+            for (Booking b: mainApp.getBookingData()){
+                if (b.equals(selectBooking)){
+                    mainApp.getBookingData().remove(b);
+                    mainApp.getBookingData().add(mainApp.getConverter().convertBookingVO(bookingVO));
                 }
             }
+            tvBooking.getSelectionModel().select(selectBooking);
+            ivCheckEdit.setVisible(true);
         }else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -128,8 +140,25 @@ public class BookingController {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Called when the user clicks on the delete button.
+     */
     @FXML
     private void handleDeleteBooking() {
+        int selectedIndex = tvBooking.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0){
+            Booking booking = tvBooking.getItems().get(selectedIndex);
+            model.deleteBookingVO(booking.getId());
+            tvBooking.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("No seleccionado");
+            alert.setContentText("No has seleccionado ninguna reserva");
+            alert.showAndWait();
+        }
     }
 
 

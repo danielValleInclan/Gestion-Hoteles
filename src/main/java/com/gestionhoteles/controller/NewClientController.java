@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewClient {
+public class NewClientController {
     @FXML
     private TextField tfDni;
     @FXML

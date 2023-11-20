@@ -23,8 +23,8 @@ public class Booking {
         this(null, null, null, null, null, null, null, null);
     }
 
-    public String getId() {
-        return id.get();
+    public int getId() {
+        return Integer.parseInt(this.id.get());
     }
 
     public StringProperty idProperty() {
@@ -35,8 +35,8 @@ public class Booking {
         this.id.set(id);
     }
 
-    public String getnRoom() {
-        return nRoom.get();
+    public int getnRoom() {
+        return Integer.parseInt(nRoom.get());
     }
 
     public StringProperty nRoomProperty() {
@@ -60,9 +60,8 @@ public class Booking {
         this.smoke.set(smoke);
     }
 
-    public LocalDate getArrivalDate() {
-        LocalDate localDate = LocalDate.parse(arrivalDate.get());
-        return localDate;
+    public String getArrivalDate() {
+        return arrivalDate.get();
     }
 
     public StringProperty arrivalDateProperty() {

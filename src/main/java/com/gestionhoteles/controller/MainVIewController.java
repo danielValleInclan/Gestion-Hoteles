@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 public class MainVIewController {
@@ -128,7 +129,7 @@ public class MainVIewController {
         Client tempCLient = new Client();
         boolean okClicked = mainApp.showNewClient(tempCLient);
         if (okClicked) {
-            mainApp.getClientData().add(tempCLient); //Añade a la ObservableList de personas
+            mainApp.getClientData().add(tempCLient); //Añade a la ObservableList de clientes
             model.addClienteVO(mainApp.getConverter().convertClient(tempCLient));
         }
     }
@@ -146,16 +147,14 @@ public class MainVIewController {
             clientVO.setTown(tfTown.getText());
             clientVO.setProvince(tfProvince.getText());
             model.editClienteVO(clientVO, selectClient.getDni());
-            ivCheckEdit.setVisible(true); // Muestra imagen de modificado
-            Iterator<Client> iterator = mainApp.getClientData().iterator();
-            while (iterator.hasNext()) {
-                Client client = iterator.next();
-                // Realizar operaciones en cliente
-                if (client.equals(selectClient)) {
-                    iterator.remove(); // Elimina el cliente de la lista
+            for (Client c: mainApp.getClientData()){
+                if (c.equals(selectClient)){
+                    mainApp.getClientData().remove(c);
                     mainApp.getClientData().add(mainApp.getConverter().convertClientVO(clientVO));
                 }
             }
+            clientTable.getSelectionModel().select(selectClient);
+            ivCheckEdit.setVisible(true); // Muestra imagen de modificado
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -1,9 +1,6 @@
 package com.gestionhoteles;
 
-import com.gestionhoteles.controller.BookingController;
-import com.gestionhoteles.controller.NewClient;
-import com.gestionhoteles.controller.MainVIewController;
-import com.gestionhoteles.controller.RootLayoutController;
+import com.gestionhoteles.controller.*;
 import com.gestionhoteles.model.*;
 import com.gestionhoteles.model.repository.Repository;
 import com.gestionhoteles.model.repository.impl.RepositoryImpl;
@@ -125,10 +122,40 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-            NewClient controller = loader.getController();
+            NewClientController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setModel(model);
             controller.setClient(client);
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean showNewBooking(Booking booking, Client client){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("NewBookingView.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Nueva Reserva");
+            dialogStage.initModality(Modality.NONE);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            NewBookingController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setModel(model);
+            controller.setClient(client);
+            controller.setBooking(booking);
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
