@@ -40,6 +40,9 @@ public class Model {
         return this.repository.GetListBookingVO();
     }
 
+    public ArrayList<BookingVO> GetListBooking_Client(String dni){
+        return this.repository.GetListBookingVO_Client(dni);
+    }
 
     public int getLastIdBooking(){
         return GetListBookingVO().getLast().getId();

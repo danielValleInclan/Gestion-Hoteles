@@ -22,4 +22,5 @@ public interface Repository {
 
     void editBookingVO(BookingVO bookingVO, int id);
 
+    ArrayList<BookingVO> GetListBookingVO_Client(String dni);
 }

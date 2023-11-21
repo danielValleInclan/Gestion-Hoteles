@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class BookingController {
@@ -18,6 +19,7 @@ public class BookingController {
     private MainApp mainApp;
     private Model model;
     private Stage stage;
+    private ObservableList<Booking> bookingData_Client = FXCollections.observableArrayList();
     private Client client;
     @FXML
     private TableView<Booking> tvBooking;
@@ -46,6 +48,7 @@ public class BookingController {
     }
     @FXML
     private void initialize() {
+        tvBooking.setItems(bookingData_Client);
         // Obtén los valores del enum y conviértelos en una lista observable
         ObservableList<TypeRoom> typeRooms = FXCollections.observableArrayList(TypeRoom.values());
         ObservableList<Regime> regimes = FXCollections.observableArrayList(Regime.values());
@@ -106,7 +109,7 @@ public class BookingController {
         Booking tempBooking = new Booking();
         boolean okClicked = mainApp.showNewBooking(tempBooking, client);
         if (okClicked) {
-            mainApp.getBookingData().add(tempBooking); //Añade a la ObservableList de reservas
+            bookingData_Client.add(tempBooking); //Añade a la ObservableList de reservas
             model.addBookingVO(mainApp.getConverter().convertBooking(tempBooking));
         }
         tvBooking.getSelectionModel().select(tempBooking);
@@ -133,10 +136,10 @@ public class BookingController {
                 alert.setContentText("No has efectuado cambios");
                 alert.showAndWait();
             } else {
-                for (Booking b: mainApp.getBookingData()){
+                for (Booking b: bookingData_Client){
                     if (b.equals(selectBooking)){
-                        mainApp.getBookingData().remove(b);
-                        mainApp.getBookingData().add(mainApp.getConverter().convertBookingVO(bookingVO));
+                        bookingData_Client.remove(b);
+                        bookingData_Client.add(mainApp.getConverter().convertBookingVO(bookingVO));
                         break;
                     }
                 }
@@ -186,8 +189,12 @@ public class BookingController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+    }
 
-        tvBooking.setItems(mainApp.getBookingData());
+    public void setBookingData_Client(){
+        ArrayList<BookingVO> bookingVOS = model.GetListBooking_Client(client.getDni());
+        ArrayList<Booking> bookings = mainApp.getConverter().convertListBVO(bookingVOS);
+        bookingData_Client.addAll(bookings);
     }
 
     public void setModel(Model model) {

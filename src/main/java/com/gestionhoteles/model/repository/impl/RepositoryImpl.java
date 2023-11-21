@@ -191,4 +191,34 @@ public class RepositoryImpl implements Repository {
             throw new RuntimeException("No se ha podido realizar la operación");
         }
     }
+
+    @Override
+    public ArrayList<BookingVO> GetListBookingVO_Client(String dni) {
+        try {
+            Connection conn = this.connectionJDBC.connectDB();
+            this.bookingVOS = new ArrayList<>();
+            this.stmt = conn.createStatement();
+            this.sentence = String.format("SELECT * FROM Booking WHERE client = '%s' %n", dni);
+            ResultSet rs = this.stmt.executeQuery(this.sentence);
+
+            while (rs.next()){
+                int id = rs.getInt("id");
+                LocalDate arrivalDate = rs.getDate("arrivalDate").toLocalDate();
+                LocalDate departureDate = rs.getDate("departureDate").toLocalDate();
+                int nRoom = rs.getInt("nRoom");
+                String typeRoom = rs.getString("typeRoom");
+                boolean smoke = rs.getBoolean("smoke");
+                String regime = rs.getString("regime");
+                String clientDni = rs.getString("client");
+                this.bookingVO = new BookingVO(id, nRoom, smoke, arrivalDate, departureDate, clientDni, TypeRoom.valueOf(typeRoom),
+                        Regime.valueOf(regime));
+                this.bookingVOS.add(bookingVO);
+            }
+
+            this.connectionJDBC.disconnectDB(conn);
+            return this.bookingVOS;
+        } catch (SQLException e) {
+            throw new RuntimeException("No se ha podido realizar la conexión");
+        }
+    }
 }

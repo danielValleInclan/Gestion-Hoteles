@@ -23,7 +23,8 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     private final Model model = new Model();
     private ObservableList<Client> clientsData = FXCollections.observableArrayList();
-    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+    //private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+    private ObservableList<Booking> bookingData_Client;
     Converter converter = new Converter();
 
     public Converter getConverter(){
@@ -40,7 +41,7 @@ public class MainApp extends Application {
             clientsData.addAll(clients);
             ArrayList<BookingVO> bookingVOS = model.GetListBookingVO();
             ArrayList<Booking> bookings = converter.convertListBVO(bookingVOS);
-            bookingData.addAll(bookings);
+            //bookingData.addAll(bookings);
         } catch (ExceptionClient e) {
             throw new RuntimeException(e);
         }
@@ -52,9 +53,9 @@ public class MainApp extends Application {
         return clientsData;
     }
 
-    public ObservableList<Booking> getBookingData() {
-        return bookingData;
-    }
+    //public ObservableList<Booking> getBookingData() {
+      //  return bookingData;
+    //}
 
     @Override
     public void start(Stage stage) {
@@ -161,7 +162,6 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-            e.printStackTrace();
             throw new RuntimeException();
         }
     }
@@ -186,6 +186,7 @@ public class MainApp extends Application {
             controller.setStage(dialogStage);
             controller.setModel(model);
             controller.setClient(client);
+            controller.setBookingData_Client();
 
             dialogStage.showAndWait();
         } catch (IOException e) {
