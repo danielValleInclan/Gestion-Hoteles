@@ -3,6 +3,7 @@ package com.gestionhoteles.controller;
 import com.gestionhoteles.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -79,7 +80,7 @@ public class NewBookingController {
     }
 
     public boolean isOkClicked() {
-        return true;
+        return okClicked;
     }
 
     @FXML
@@ -99,5 +100,9 @@ public class NewBookingController {
 
     public Booking getBooking() {
         return booking;
+    }
+
+    public void handleCancel(ActionEvent actionEvent) {
+        dialogStage.close();
     }
 }

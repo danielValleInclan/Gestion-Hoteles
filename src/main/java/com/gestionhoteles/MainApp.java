@@ -161,6 +161,7 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }

@@ -10,7 +10,7 @@
         <DatePicker fx:id="dpArriveDate" layoutX="14.0" layoutY="59.0" />
         <DatePicker fx:id="dpDepartureDate" layoutX="347.0" layoutY="56.0" />
         <Label layoutX="14.0" layoutY="120.0" text="Número de habitaciones" />
-        <Spinner fx:id="sNroom" disable="true" layoutX="212.0" layoutY="116.0" prefHeight="24.0" prefWidth="72.0">
+        <Spinner fx:id="sNroom" layoutX="212.0" layoutY="116.0" prefHeight="24.0" prefWidth="72.0">
             <valueFactory>
                 <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="1" min="1" />
             </valueFactory>
@@ -21,6 +21,6 @@
         <ChoiceBox fx:id="cbRegime" layoutX="160.0" layoutY="223.0" prefWidth="150.0" />
         <Label layoutX="14.0" layoutY="227.0" text="Tipo de Régimen" />
       <Button fx:id="bOk" layoutX="39.0" layoutY="346.0" mnemonicParsing="false" onAction="#handleOk" text="Vale" />
-      <Button fx:id="bCancel" layoutX="507.0" layoutY="346.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="bCancel" layoutX="507.0" layoutY="346.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
     </children>
 </AnchorPane>
