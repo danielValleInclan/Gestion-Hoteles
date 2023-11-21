@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.MainVIewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.MainVIewController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -61,7 +60,7 @@
                      <image>
                         <Image url="@check.png" />
                      </image></ImageView>
-                  <Button fx:id="bBooking" layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#openBooking" text="Abrir reservas" />
+                  <Button fx:id="bBooking" layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#openBooking" text="Abrir reservas cliente" />
                </children>
             </AnchorPane>
         </items>
