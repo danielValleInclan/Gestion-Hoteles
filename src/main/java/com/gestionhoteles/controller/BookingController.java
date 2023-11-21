@@ -4,7 +4,6 @@ import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -12,14 +11,13 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class BookingController {
 
     private MainApp mainApp;
     private Model model;
     private Stage stage;
-    private ObservableList<Booking> bookingData_Client = FXCollections.observableArrayList();
+    private final ObservableList<Booking> bookingData_Client = FXCollections.observableArrayList();
     private Client client;
     @FXML
     private TableView<Booking> tvBooking;
@@ -66,10 +64,6 @@ public class BookingController {
         // Listen for selection changes and show the client details when changed.
         tvBooking.getSelectionModel().selectedItemProperty().addListener((
                 (observableValue, oldValue, newValue) -> showDetailsBooking(newValue)));
-    }
-
-    public Stage getStage() {
-        return stage;
     }
 
     public void setStage(Stage stage) {
@@ -177,12 +171,6 @@ public class BookingController {
         }
     }
 
-
-
-    public Client getClient() {
-        return client;
-    }
-
     public void setClient(Client client) {
         this.client = client;
     }
@@ -191,6 +179,7 @@ public class BookingController {
         this.mainApp = mainApp;
     }
 
+    // Crea una tabla solamente del cliente seleccionado
     public void setBookingData_Client(){
         ArrayList<BookingVO> bookingVOS = model.GetListBooking_Client(client.getDni());
         ArrayList<Booking> bookings = mainApp.getConverter().convertListBVO(bookingVOS);

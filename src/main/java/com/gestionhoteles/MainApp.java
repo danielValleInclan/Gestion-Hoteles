@@ -39,9 +39,11 @@ public class MainApp extends Application {
             ArrayList<ClientVO> clientVOS = model.GetListClienteVO();
             ArrayList<Client> clients = converter.convertListCVO(clientVOS);
             clientsData.addAll(clients);
+            /*
             ArrayList<BookingVO> bookingVOS = model.GetListBookingVO();
             ArrayList<Booking> bookings = converter.convertListBVO(bookingVOS);
             //bookingData.addAll(bookings);
+             */
         } catch (ExceptionClient e) {
             throw new RuntimeException(e);
         }
