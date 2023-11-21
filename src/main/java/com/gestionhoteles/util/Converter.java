@@ -50,27 +50,27 @@ public class Converter {
     }
 
     public Booking convertBookingVO(BookingVO bookingVO){
-        String id = String.valueOf(bookingVO.getId());
-        String nRoom = String.valueOf(bookingVO.getnRoom());
         Booking booking = new Booking();
-        booking.setId(id);
+        booking.setId(String.valueOf(bookingVO.getId()));
         booking.setArrivalDate(String.valueOf(bookingVO.getArrivalDate()));
         booking.setDepartureDate(String.valueOf(bookingVO.getDepartureDate()));
-        booking.setnRoom(bookingVO.getnRoom()+"");
+        booking.setnRoom(String.valueOf(bookingVO.getnRoom()));
         booking.setTypeRoom(bookingVO.getStringTRoom());
         booking.setRegime(bookingVO.getStringRegime());
         booking.setClientDni(bookingVO.getClientDni());
+        booking.setSmoke(String.valueOf(bookingVO.getSmoke()));
         return booking;
     }
 
     public BookingVO convertBooking(Booking booking){
         BookingVO bookingVO = new BookingVO();
         bookingVO.setArrivalDate(LocalDate.parse(booking.getArrivalDate()));
-        bookingVO.setDepartureDate(booking.getDepartureDate());
+        bookingVO.setDepartureDate(LocalDate.parse(booking.getDepartureDate()));
         bookingVO.setnRoom(booking.getnRoom());
         bookingVO.setTypeRoom(booking.getTypeRoom());
         bookingVO.setRegime(booking.getRegime());
         bookingVO.setClientDni(booking.getClientDni());
+        bookingVO.setSmoke(Boolean.parseBoolean(booking.getSmoke()));
         return bookingVO;
     }
 }

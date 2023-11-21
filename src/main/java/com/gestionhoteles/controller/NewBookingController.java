@@ -35,10 +35,9 @@ public class NewBookingController {
     @FXML
     private void handleOk(){
         if (isInputValid()){
-            Booking booking = new Booking();
             booking.setArrivalDate(String.valueOf(dpArriveDate.getValue()));
             booking.setDepartureDate(String.valueOf(dpDepartureDate.getValue()));
-            booking.setSmoke(cbSmoke.getText());
+            booking.setSmoke(String.valueOf(cbSmoke.isSelected()));
             booking.setTypeRoom(String.valueOf(cbTypeRoom.getValue()));
             booking.setRegime(String.valueOf(cbRegime.getValue()));
             booking.setClientDni(client.getDni());
@@ -96,5 +95,9 @@ public class NewBookingController {
 
     public void setBooking(Booking booking) {
         this.booking = booking;
+    }
+
+    public Booking getBooking() {
+        return booking;
     }
 }

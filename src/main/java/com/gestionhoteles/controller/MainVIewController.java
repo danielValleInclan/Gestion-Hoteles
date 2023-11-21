@@ -1,10 +1,7 @@
 package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
-import com.gestionhoteles.model.Client;
-import com.gestionhoteles.model.ClientVO;
-import com.gestionhoteles.model.ExceptionClient;
-import com.gestionhoteles.model.Model;
+import com.gestionhoteles.model.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -132,6 +129,7 @@ public class MainVIewController {
             mainApp.getClientData().add(tempCLient); //Añade a la ObservableList de clientes
             model.addClienteVO(mainApp.getConverter().convertClient(tempCLient));
         }
+        clientTable.getSelectionModel().select(tempCLient);
     }
 
 
@@ -146,15 +144,26 @@ public class MainVIewController {
             clientVO.setAddress(tfAddress.getText());
             clientVO.setTown(tfTown.getText());
             clientVO.setProvince(tfProvince.getText());
-            model.editClienteVO(clientVO, selectClient.getDni());
-            for (Client c: mainApp.getClientData()){
-                if (c.equals(selectClient)){
-                    mainApp.getClientData().remove(c);
-                    mainApp.getClientData().add(mainApp.getConverter().convertClientVO(clientVO));
+            if (mainApp.getConverter().convertClientVO(clientVO).equals(selectClient)){
+                model.editClienteVO(clientVO, selectClient.getDni());
+                // Nothing changed.
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("No has efectuado cambios");
+                alert.showAndWait();
+            } else {
+                for (Client c: mainApp.getClientData()){
+                    if (c.equals(selectClient)){
+                        mainApp.getClientData().remove(c);
+                        mainApp.getClientData().add(mainApp.getConverter().convertClientVO(clientVO));
+                        break;
+                    }
                 }
+                selectClient = mainApp.getConverter().convertClientVO(clientVO);
+                clientTable.getSelectionModel().select(selectClient);
+                ivCheckEdit.setVisible(true); // Muestra imagen de modificado
             }
-            clientTable.getSelectionModel().select(selectClient);
-            ivCheckEdit.setVisible(true); // Muestra imagen de modificado
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

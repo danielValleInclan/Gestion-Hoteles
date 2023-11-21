@@ -87,8 +87,8 @@ public class BookingController {
     private void showDetailsBooking(Booking booking){
         if (booking != null){
             dpArriveDate.setValue(LocalDate.parse(booking.getArrivalDate()));
-            dpDepartureDate.setValue(booking.getDepartureDate());
-            cbSmoke.setSelected(booking.getSmoke());
+            dpDepartureDate.setValue(LocalDate.parse(booking.getDepartureDate()));
+            cbSmoke.setSelected(Boolean.parseBoolean(booking.getSmoke()));
             cbTypeRoom.setValue(booking.getTypeRoom());
             cbRegime.setValue(booking.getRegime());
         }else {
@@ -109,28 +109,41 @@ public class BookingController {
             mainApp.getBookingData().add(tempBooking); //Añade a la ObservableList de reservas
             model.addBookingVO(mainApp.getConverter().convertBooking(tempBooking));
         }
+        tvBooking.getSelectionModel().select(tempBooking);
     }
     @FXML
     private void handleEditBooking() {
         Booking selectBooking = getSelectBooking();
         if (selectBooking != null){
             BookingVO bookingVO = mainApp.getConverter().convertBooking(selectBooking);
+            bookingVO.setId(selectBooking.getId());
             bookingVO.setArrivalDate(dpArriveDate.getValue());
             bookingVO.setDepartureDate(dpDepartureDate.getValue());
-            if (cbSmoke.isSelected()) bookingVO.setSmoke(true);
+            bookingVO.setSmoke(cbSmoke.isSelected());
             bookingVO.setTypeRoom(cbTypeRoom.getValue());
             bookingVO.setRegime(cbRegime.getValue());
             bookingVO.setClientDni(client.getDni());
             bookingVO.setnRoom(1);
-            model.editBookingVO(bookingVO, bookingVO.getId());
-            for (Booking b: mainApp.getBookingData()){
-                if (b.equals(selectBooking)){
-                    mainApp.getBookingData().remove(b);
-                    mainApp.getBookingData().add(mainApp.getConverter().convertBookingVO(bookingVO));
+            if (mainApp.getConverter().convertBookingVO(bookingVO).equals(selectBooking)){
+                model.editBookingVO(bookingVO, model.getLastIdBooking());
+                // Nothing changed.
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("No has efectuado cambios");
+                alert.showAndWait();
+            } else {
+                for (Booking b: mainApp.getBookingData()){
+                    if (b.equals(selectBooking)){
+                        mainApp.getBookingData().remove(b);
+                        mainApp.getBookingData().add(mainApp.getConverter().convertBookingVO(bookingVO));
+                        break;
+                    }
                 }
+                selectBooking = mainApp.getConverter().convertBookingVO(bookingVO);
+                tvBooking.getSelectionModel().select(selectBooking);
+                ivCheckEdit.setVisible(true);
             }
-            tvBooking.getSelectionModel().select(selectBooking);
-            ivCheckEdit.setVisible(true);
         }else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -40,6 +40,11 @@ public class Model {
         return this.repository.GetListBookingVO();
     }
 
+
+    public int getLastIdBooking(){
+        return GetListBookingVO().getLast().getId();
+    }
+
     public void setRepository(Repository repository){
         this.repository = repository;
     }

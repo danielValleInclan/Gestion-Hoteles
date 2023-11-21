@@ -47,9 +47,8 @@ public class Booking {
         this.nRoom.set(nRoom);
     }
 
-    public boolean getSmoke() {
-        String string = this.smoke.toString();
-        return Boolean.parseBoolean(string);
+    public String getSmoke() {
+        return smoke.get();
     }
 
     public StringProperty smokeProperty() {
@@ -72,9 +71,8 @@ public class Booking {
         this.arrivalDate.set(arrivalDate);
     }
 
-    public LocalDate getDepartureDate() {
-        LocalDate localDate = LocalDate.parse(departureDate.get());
-        return localDate;
+    public String getDepartureDate() {
+        return this.departureDate.get();
     }
 
     public StringProperty departureDateProperty() {
