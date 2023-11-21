@@ -36,6 +36,7 @@ public class NewBookingController {
     @FXML
     private void handleOk(){
         if (isInputValid()){
+            booking.setId(String.valueOf(model.getLastIdBooking()+1));
             booking.setArrivalDate(String.valueOf(dpArriveDate.getValue()));
             booking.setDepartureDate(String.valueOf(dpDepartureDate.getValue()));
             booking.setSmoke(String.valueOf(cbSmoke.isSelected()));
