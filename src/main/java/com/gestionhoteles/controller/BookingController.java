@@ -38,6 +38,8 @@ public class BookingController {
     private ChoiceBox<Regime> cbRegime;
     @FXML
     private ImageView ivCheckEdit;
+    @FXML
+    private Label lAd;
 
     /**
      * The constructor.
@@ -169,6 +171,16 @@ public class BookingController {
             alert.setTitle("No seleccionado");
             alert.setContentText("No has seleccionado ninguna reserva");
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleSmoke(){
+        if (cbSmoke.isSelected()){
+            lAd.setText("En virtud de la ley de sanidad se informa a los clientes de que solo podrán fumar en las habitaciones\n"
+                    + "reservadas para tal fin.");
+        } else {
+            lAd.setText("");
         }
     }
 

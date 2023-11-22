@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="447.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.BookingController">
+<AnchorPane prefHeight="447.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.BookingController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="384.0" prefWidth="728.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -36,7 +46,7 @@
                           <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="1" min="1" />
                       </valueFactory>
                    </Spinner>
-                  <CheckBox fx:id="cbSmoke" layoutX="398.0" layoutY="119.0" mnemonicParsing="false" text="Fumador" />
+                  <CheckBox fx:id="cbSmoke" layoutX="398.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleSmoke" text="Fumador" />
                   <ChoiceBox fx:id="cbTypeRoom" layoutX="160.0" layoutY="182.0" prefWidth="150.0" />
                   <Label layoutX="9.0" layoutY="186.0" text="Tipo de Habitación" />
                   <ChoiceBox fx:id="cbRegime" layoutX="160.0" layoutY="223.0" prefWidth="150.0" />
@@ -46,6 +56,7 @@
                        <image>
                            <Image url="@check.png" />
                        </image></ImageView>
+                  <Label fx:id="lAd" layoutX="23.0" layoutY="288.0" prefHeight="47.0" prefWidth="584.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                </children>
             </AnchorPane>
         </items>
