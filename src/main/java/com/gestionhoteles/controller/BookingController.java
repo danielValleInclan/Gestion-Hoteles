@@ -91,7 +91,7 @@ public class BookingController {
             cbSmoke.setSelected(Boolean.parseBoolean(booking.getSmoke()));
             cbTypeRoom.setValue(booking.getTypeRoom());
             cbRegime.setValue(booking.getRegime());
-            if (dpArriveDate.getValue().isBefore(LocalDate.now()) || dpArriveDate.getValue().equals(LocalDate.now())){{
+            if (dpDepartureDate.getValue().isBefore(LocalDate.now()) || dpDepartureDate.getValue().equals(LocalDate.now())){{
                 dpArriveDate.setDisable(true);
                 dpDepartureDate.setDisable(true);
                 cbSmoke.setDisable(true);
