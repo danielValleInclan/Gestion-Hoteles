@@ -132,6 +132,7 @@ public class MainApp extends Application {
             // Set the person into the controller.
             NewClientController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
             controller.setModel(model);
             controller.setClient(client);
             // Show the dialog and wait until the user closes it

@@ -1,8 +1,10 @@
 package com.gestionhoteles.controller;
 
+import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.Client;
 import com.gestionhoteles.model.ExceptionClient;
 import com.gestionhoteles.model.Model;
+import com.gestionhoteles.util.ValidateDni;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -27,6 +29,15 @@ public class NewClientController {
     private Stage stage;
     private Client client;
 
+    private MainApp mainApp;
+
+    public MainApp getMainApp() {
+        return mainApp;
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
 
     @FXML
     private void handleOk() throws ExceptionClient{
@@ -43,11 +54,26 @@ public class NewClientController {
         }
     }
 
+    private boolean existDni(String s){
+        for (Client c : mainApp.getClientData()){
+            if (c.getDni().equals(s)) return true;
+        }
+        return false;
+    }
+
+    private boolean validDni(String s){
+        return new ValidateDni(s).validate();
+    }
+
     private boolean isInputValid(){
         String errorMessage = "";
-        if (tfDni.getText() == null || tfDni.getText().isEmpty()) errorMessage += "Nombre inválido \n";
-        if (tfName.getText() == null || tfName.getText().isEmpty()) errorMessage += "Apellido inválido! \n";
-        if (tfLastName.getText() == null || tfLastName.getText().isEmpty()) errorMessage += "DNI inválido! \n";
+        if (!validDni(tfDni.getText())){
+            errorMessage += "Formato de DNI inválido \n";
+        } else if (existDni(tfDni.getText())) {
+            errorMessage += "DNI ya existe \n";
+        }
+        if (tfName.getText() == null || tfName.getText().isEmpty()) errorMessage += "Nombre inválido! \n";
+        if (tfLastName.getText() == null || tfLastName.getText().isEmpty()) errorMessage += "Apellido inválido! \n";
         if (tfAddress.getText() == null || tfAddress.getText().isEmpty()) errorMessage += "Dirección inválida! \n";
         if (tfTown.getText() == null || tfTown.getText().isEmpty()) errorMessage += "Localidad inválida!! \n";
         if (tfProvince.getText() == null || tfProvince.getText().isEmpty()) errorMessage += "Provincia inválida! \n";

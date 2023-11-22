@@ -2,10 +2,12 @@ package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.*;
+import com.gestionhoteles.util.ValidateDni;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -36,6 +38,9 @@ public class MainVIewController {
     private ImageView ivCheckEdit;
     @FXML
     private Button bBooking;
+    @FXML TextField tfSearch;
+    @FXML
+    private Button bSearch;
 
 
     /**
@@ -172,6 +177,60 @@ public class MainVIewController {
             alert.setContentText("No has seleccionado ningún Cliente");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    private void handleSearchBooking() throws ExeptionBooking {
+        boolean existDni = false;
+        if (validateDni(tfSearch.getText())){
+            for (Client c: mainApp.getClientData()){
+                if (tfSearch.getText().equals(c.getDni())){
+                    mainApp.showBookingView(c);
+                    existDni = true;
+                    break;
+                }
+            }
+            if (!existDni){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("No existe DNI");
+                alert.setContentText("No existe ningún cliente con tal dni");
+                alert.showAndWait();
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Formato inválido");
+            alert.setContentText("Formato de dni Inválido");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleSearchBookingKey(KeyEvent event) throws ExeptionBooking {
+        if (event.getCode().toString().equals("ENTER")) {
+            if (validateDni(tfSearch.getText())){
+                // Este código se ejecutará cuando se presione Enter
+                for (Client c: mainApp.getClientData()){
+                    if (tfSearch.getText().equals(c.getDni())){
+                        mainApp.showBookingView(c);
+                        break;
+                    }
+                }
+            }else {
+                // Nothing selected.
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("Formato inválido");
+                alert.setContentText("Formato de dni Inválido");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    private boolean validateDni(String s){
+        return new ValidateDni(s).validate();
     }
 
     @FXML
