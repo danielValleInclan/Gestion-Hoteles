@@ -26,7 +26,7 @@ public class RepositoryImpl implements Repository {
             Connection conn = this.connectionJDBC.connectDB();
             this.clientVOS = new ArrayList<>();
             this.stmt = conn.createStatement();
-            this.sentence = "SELECT * FROM Client";
+            this.sentence = "SELECT * FROM Client ORDER BY name, lastName";
             ResultSet rs = this.stmt.executeQuery(this.sentence);
 
             while (rs.next()){
@@ -53,7 +53,7 @@ public class RepositoryImpl implements Repository {
             Connection conn = this.connectionJDBC.connectDB();
             this.bookingVOS = new ArrayList<>();
             this.stmt = conn.createStatement();
-            this.sentence = "SELECT * FROM Booking";
+            this.sentence = "SELECT * FROM Booking ORDER BY arrivalDate DESC";
             ResultSet rs = this.stmt.executeQuery(this.sentence);
 
             while (rs.next()){
@@ -198,7 +198,7 @@ public class RepositoryImpl implements Repository {
             Connection conn = this.connectionJDBC.connectDB();
             this.bookingVOS = new ArrayList<>();
             this.stmt = conn.createStatement();
-            this.sentence = String.format("SELECT * FROM Booking WHERE client = '%s' %n", dni);
+            this.sentence = String.format("SELECT * FROM Booking WHERE client = '%s' %n ORDER BY arrivalDate DESC", dni);
             ResultSet rs = this.stmt.executeQuery(this.sentence);
 
             while (rs.next()){
