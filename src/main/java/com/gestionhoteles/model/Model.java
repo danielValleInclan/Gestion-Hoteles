@@ -8,15 +8,15 @@ import java.util.ArrayList;
 public class Model {
     private Repository repository;
 
-    public void addBookingVO(BookingVO bookingVO){
+    public void addBookingVO(BookingVO bookingVO) throws ExeptionBooking {
         repository.addBookingVO(bookingVO);
     }
 
-    public void editBookingVO(BookingVO bookingVO, int id){
+    public void editBookingVO(BookingVO bookingVO, int id) throws ExeptionBooking {
         repository.editBookingVO(bookingVO, id);
     }
 
-    public void deleteBookingVO(int id){
+    public void deleteBookingVO(int id) throws ExeptionBooking {
         repository.deleteBookingVO(id);
     }
     public void addClienteVO(ClientVO clientVO) throws ExceptionClient {
@@ -36,15 +36,15 @@ public class Model {
     }
 
 
-    public ArrayList<BookingVO> GetListBookingVO() throws RuntimeException{
+    public ArrayList<BookingVO> GetListBookingVO() throws ExeptionBooking {
         return this.repository.GetListBookingVO();
     }
 
-    public ArrayList<BookingVO> GetListBooking_Client(String dni){
+    public ArrayList<BookingVO> GetListBooking_Client(String dni) throws ExeptionBooking {
         return this.repository.GetListBookingVO_Client(dni);
     }
 
-    public int getLastIdBooking(){
+    public int getLastIdBooking() throws ExeptionBooking {
         return GetListBookingVO().getLast().getId();
     }
 

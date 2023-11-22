@@ -48,7 +48,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public ArrayList<BookingVO> GetListBookingVO() throws RuntimeException {
+    public ArrayList<BookingVO> GetListBookingVO() throws ExeptionBooking {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.bookingVOS = new ArrayList<>();
@@ -73,7 +73,7 @@ public class RepositoryImpl implements Repository {
             this.connectionJDBC.disconnectDB(conn);
             return this.bookingVOS;
         } catch (SQLException e) {
-            throw new RuntimeException("No se ha podido realizar la conexión");
+            throw new ExeptionBooking("No se ha podido realizar la conexión");
         }
     }
 
@@ -94,7 +94,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void addBookingVO(BookingVO bookingVO) {
+    public void addBookingVO(BookingVO bookingVO) throws ExeptionBooking {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
@@ -112,7 +112,7 @@ public class RepositoryImpl implements Repository {
             this.stmt.close();
             this.connectionJDBC.disconnectDB(conn);
         } catch (SQLException e) {
-            throw new RuntimeException("No se ha podido realizar la operación");
+            throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
 
@@ -131,7 +131,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void deleteBookingVO(int id) {
+    public void deleteBookingVO(int id) throws ExeptionBooking{
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
@@ -140,7 +140,7 @@ public class RepositoryImpl implements Repository {
             command.executeUpdate(sql);
             this.connectionJDBC.disconnectDB(conn);
         } catch (SQLException e) {
-            throw new RuntimeException("No se ha podido realizar la operación");
+            throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
 
@@ -169,7 +169,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void editBookingVO(BookingVO bookingVO, int id)  {
+    public void editBookingVO(BookingVO bookingVO, int id) throws ExeptionBooking  {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
@@ -188,12 +188,12 @@ public class RepositoryImpl implements Repository {
             command.executeUpdate(sql);
             this.connectionJDBC.disconnectDB(conn);
         } catch (SQLException e) {
-            throw new RuntimeException("No se ha podido realizar la operación");
+            throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
 
     @Override
-    public ArrayList<BookingVO> GetListBookingVO_Client(String dni) {
+    public ArrayList<BookingVO> GetListBookingVO_Client(String dni) throws ExeptionBooking {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.bookingVOS = new ArrayList<>();
@@ -218,7 +218,7 @@ public class RepositoryImpl implements Repository {
             this.connectionJDBC.disconnectDB(conn);
             return this.bookingVOS;
         } catch (SQLException e) {
-            throw new RuntimeException("No se ha podido realizar la conexión");
+            throw new ExeptionBooking("No se ha podido realizar la conexión");
         }
     }
 }

@@ -175,7 +175,7 @@ public class MainVIewController {
     }
 
     @FXML
-    private void openBooking(){
+    private void openBooking() throws ExeptionBooking {
         Client selectClient = getSelectClient();
         if (selectClient != null){
             mainApp.showBookingView(selectClient);

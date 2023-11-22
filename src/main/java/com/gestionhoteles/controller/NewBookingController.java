@@ -34,7 +34,7 @@ public class NewBookingController {
 
 
     @FXML
-    private void handleOk(){
+    private void handleOk() throws ExeptionBooking {
         if (isInputValid()){
             booking.setId(String.valueOf(model.getLastIdBooking()+1));
             booking.setArrivalDate(String.valueOf(dpArriveDate.getValue()));

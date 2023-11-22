@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -45,7 +46,11 @@ public class MainApp extends Application {
             //bookingData.addAll(bookings);
              */
         } catch (ExceptionClient e) {
-            throw new RuntimeException(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al listar a los clientes.");
+            alert.setTitle("Error con la base de datos");
+            alert.setContentText("No se puede conectar con la base de datos");
+            alert.showAndWait();
         }
 
     }
@@ -167,7 +172,7 @@ public class MainApp extends Application {
             throw new RuntimeException();
         }
     }
-    public void showBookingView (Client client){
+    public void showBookingView (Client client) throws ExeptionBooking {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -193,6 +198,8 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
         } catch (IOException e) {
             throw new RuntimeException();
+        } catch (ExeptionBooking e) {
+            throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
     public static void main(String[] args) {

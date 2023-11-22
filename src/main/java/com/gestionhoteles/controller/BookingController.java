@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.net.ConnectException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -99,7 +100,7 @@ public class BookingController {
         ivCheckEdit.setVisible(false);
     }
     @FXML
-    private void handleNewBooking() {
+    private void handleNewBooking() throws ExeptionBooking {
         Booking tempBooking = new Booking();
         boolean okClicked = mainApp.showNewBooking(tempBooking, client);
         if (okClicked) {
@@ -109,7 +110,7 @@ public class BookingController {
         tvBooking.getSelectionModel().select(tempBooking);
     }
     @FXML
-    private void handleEditBooking() {
+    private void handleEditBooking() throws ExeptionBooking {
         Booking selectBooking = getSelectBooking();
         if (selectBooking != null){
             BookingVO bookingVO = mainApp.getConverter().convertBooking(selectBooking);
@@ -155,7 +156,7 @@ public class BookingController {
      * Called when the user clicks on the delete button.
      */
     @FXML
-    private void handleDeleteBooking() {
+    private void handleDeleteBooking() throws ExeptionBooking {
         int selectedIndex = tvBooking.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0){
             Booking booking = tvBooking.getItems().get(selectedIndex);
@@ -180,10 +181,18 @@ public class BookingController {
     }
 
     // Crea una tabla solamente del cliente seleccionado
-    public void setBookingData_Client(){
-        ArrayList<BookingVO> bookingVOS = model.GetListBooking_Client(client.getDni());
-        ArrayList<Booking> bookings = mainApp.getConverter().convertListBVO(bookingVOS);
-        bookingData_Client.addAll(bookings);
+    public void setBookingData_Client() throws ExeptionBooking{
+        try {
+            ArrayList<BookingVO> bookingVOS = model.GetListBooking_Client(client.getDni());
+            ArrayList<Booking> bookings = mainApp.getConverter().convertListBVO(bookingVOS);
+            bookingData_Client.addAll(bookings);
+        } catch (ExeptionBooking e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al listar a los clientes.");
+            alert.setTitle("Error con la base de datos");
+            alert.setContentText("No se puede conectar con la base de datos");
+            alert.showAndWait();
+        }
     }
 
     public void setModel(Model model) {
