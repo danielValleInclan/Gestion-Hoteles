@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -29,6 +26,8 @@ public class NewBookingController {
     private ChoiceBox<TypeRoom> cbTypeRoom;
     @FXML
     private ChoiceBox<Regime> cbRegime;
+    @FXML
+    private Label lAd;
 
     private boolean okClicked = false;
 
@@ -104,5 +103,15 @@ public class NewBookingController {
 
     public void handleCancel(ActionEvent actionEvent) {
         dialogStage.close();
+    }
+
+    @FXML
+    private void handleSmoke(){
+        if (cbSmoke.isSelected()){
+            lAd.setText("En virtud de la ley de sanidad se informa a los clientes de que solo podrán fumar en las habitaciones\n"
+                    + "reservadas para tal fin.");
+        } else {
+            lAd.setText("");
+        }
     }
 }
