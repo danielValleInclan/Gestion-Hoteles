@@ -105,6 +105,7 @@ public class MainVIewController {
     /**
      * Called when the user clicks on the delete button.
      */
+    /*
     @FXML
     private void handleDeleteClient() throws ExceptionClient{
         int selectedIndex = clientTable.getSelectionModel().getSelectedIndex();
@@ -121,6 +122,7 @@ public class MainVIewController {
             alert.showAndWait();
         }
     }
+     */
 
     /**
      * Called when the user clicks the new button. Opens a dialog to edit

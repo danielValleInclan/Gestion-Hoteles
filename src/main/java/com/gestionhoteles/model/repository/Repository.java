@@ -12,9 +12,9 @@ public interface Repository {
 
     ArrayList<BookingVO> GetListBookingVO() throws ExeptionBooking;
     void addClienteVO(ClientVO var1) throws ExceptionClient;
-
+/*
     void deleteClienteVO(String var1) throws ExceptionClient;
-
+*/
     void editClienteVO(ClientVO var1, String dni) throws ExceptionClient;
 
     void addBookingVO(BookingVO bookingVO) throws ExeptionBooking;

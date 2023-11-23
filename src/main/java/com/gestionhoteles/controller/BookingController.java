@@ -113,8 +113,9 @@ public class BookingController {
         Booking tempBooking = new Booking();
         boolean okClicked = mainApp.showNewBooking(tempBooking, client);
         if (okClicked) {
-            bookingData_Client.add(tempBooking); //Añade a la ObservableList de reservas
             model.addBookingVO(mainApp.getConverter().convertBooking(tempBooking));
+            tempBooking.setId(String.valueOf(model.getLastIdBooking()));
+            bookingData_Client.add(tempBooking); //Añade a la ObservableList de reservas
         }
         tvBooking.getSelectionModel().select(tempBooking);
     }

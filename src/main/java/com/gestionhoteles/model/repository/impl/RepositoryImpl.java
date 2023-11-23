@@ -115,7 +115,7 @@ public class RepositoryImpl implements Repository {
             throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
-
+/*
     @Override
     public void deleteClienteVO(String dniClient) throws ExceptionClient {
         try {
@@ -129,6 +129,7 @@ public class RepositoryImpl implements Repository {
             throw new ExceptionClient("No se ha podido realizar la operación");
         }
     }
+ */
 
     @Override
     public void deleteBookingVO(int id) throws ExeptionBooking{

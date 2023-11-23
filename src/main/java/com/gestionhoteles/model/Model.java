@@ -23,9 +23,11 @@ public class Model {
         repository.addClienteVO(clientVO);
     }
 
+    /*
     public void deleteClienteVO(Client client) throws ExceptionClient {
         repository.deleteClienteVO(client.getDni());
     }
+     */
 
     public void editClienteVO(ClientVO clientVO, String dni) throws ExceptionClient {
         repository.editClienteVO(clientVO, dni);
