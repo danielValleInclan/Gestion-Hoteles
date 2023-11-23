@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class NewBookingController {
 
     private Model model;
@@ -47,10 +49,18 @@ public class NewBookingController {
         }
     }
 
+    private boolean isDateValid(){
+        return (dpArriveDate.getValue().isAfter(LocalDate.now())
+                || dpArriveDate.getValue().isEqual(LocalDate.now()))
+                && (dpArriveDate.getValue().isBefore(dpDepartureDate.getValue())
+                || dpArriveDate.getValue().isEqual(dpDepartureDate.getValue()));
+    }
+
     private boolean isInputValid(){
         String errorMessage = "";
         if (dpArriveDate.getValue() == null) errorMessage += "Fecha de llegada invalida \n";
         if (dpDepartureDate.getValue() == null) errorMessage += "Fecha de salida inválida! \n";
+        if (!isDateValid()) errorMessage += "Las fechas no coinciden \n";
         if (cbTypeRoom.getValue() == null) errorMessage += "Tipo de habitación invalida! \n";
         if (cbRegime.getValue() == null) errorMessage += "Regimen inválido!! \n";
         if (errorMessage.isEmpty()){

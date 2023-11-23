@@ -91,13 +91,19 @@ public class BookingController {
             cbSmoke.setSelected(Boolean.parseBoolean(booking.getSmoke()));
             cbTypeRoom.setValue(booking.getTypeRoom());
             cbRegime.setValue(booking.getRegime());
-            if (dpDepartureDate.getValue().isBefore(LocalDate.now()) || dpDepartureDate.getValue().equals(LocalDate.now())){{
+            if (dpDepartureDate.getValue().isBefore(LocalDate.now()) || dpDepartureDate.getValue().equals(LocalDate.now())){
                 dpArriveDate.setDisable(true);
                 dpDepartureDate.setDisable(true);
                 cbSmoke.setDisable(true);
                 cbTypeRoom.setDisable(true);
                 cbRegime.setDisable(true);
-            }}
+            } else {
+                dpArriveDate.setDisable(false);
+                dpDepartureDate.setDisable(false);
+                cbSmoke.setDisable(false);
+                cbTypeRoom.setDisable(false);
+                cbRegime.setDisable(false);
+            }
         }else {
             // Cliente es nulo elimina el texto
             dpArriveDate.setValue(null);
@@ -119,45 +125,62 @@ public class BookingController {
         }
         tvBooking.getSelectionModel().select(tempBooking);
     }
+
+    private boolean isDateValid(){
+        return (dpArriveDate.getValue().isAfter(LocalDate.now())
+                || dpArriveDate.getValue().isEqual(LocalDate.now()))
+                && (dpArriveDate.getValue().isBefore(dpDepartureDate.getValue())
+                || dpArriveDate.getValue().isEqual(dpDepartureDate.getValue()));
+    }
+
     @FXML
     private void handleEditBooking() throws ExeptionBooking {
-        Booking selectBooking = getSelectBooking();
-        if (selectBooking != null){
-            BookingVO bookingVO = mainApp.getConverter().convertBooking(selectBooking);
-            bookingVO.setId(selectBooking.getId());
-            bookingVO.setArrivalDate(dpArriveDate.getValue());
-            bookingVO.setDepartureDate(dpDepartureDate.getValue());
-            bookingVO.setSmoke(cbSmoke.isSelected());
-            bookingVO.setTypeRoom(cbTypeRoom.getValue());
-            bookingVO.setRegime(cbRegime.getValue());
-            bookingVO.setClientDni(client.getDni());
-            bookingVO.setnRoom(1);
-            if (mainApp.getConverter().convertBookingVO(bookingVO).equals(selectBooking)){
-                model.editBookingVO(bookingVO, model.getLastIdBooking());
-                // Nothing changed.
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText("No has efectuado cambios");
-                alert.showAndWait();
-            } else {
-                for (Booking b: bookingData_Client){
-                    if (b.equals(selectBooking)){
-                        bookingData_Client.remove(b);
-                        bookingData_Client.add(mainApp.getConverter().convertBookingVO(bookingVO));
-                        break;
+        if (isDateValid()){
+            Booking selectBooking = getSelectBooking();
+            if (selectBooking != null){
+                BookingVO bookingVO = mainApp.getConverter().convertBooking(selectBooking);
+                bookingVO.setId(selectBooking.getId());
+                bookingVO.setArrivalDate(dpArriveDate.getValue());
+                bookingVO.setDepartureDate(dpDepartureDate.getValue());
+                bookingVO.setSmoke(cbSmoke.isSelected());
+                bookingVO.setTypeRoom(cbTypeRoom.getValue());
+                bookingVO.setRegime(cbRegime.getValue());
+                bookingVO.setClientDni(client.getDni());
+                bookingVO.setnRoom(1);
+                if (mainApp.getConverter().convertBookingVO(bookingVO).equals(selectBooking)){
+                    // Nothing changed.
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText("No has efectuado cambios");
+                    alert.showAndWait();
+                } else {
+                    for (Booking b: bookingData_Client){
+                        if (b.equals(selectBooking)){
+                            bookingData_Client.remove(b);
+                            bookingData_Client.add(mainApp.getConverter().convertBookingVO(bookingVO));
+                            break;
+                        }
                     }
+                    model.editBookingVO(bookingVO);
+                    selectBooking = mainApp.getConverter().convertBookingVO(bookingVO);
+                    tvBooking.getSelectionModel().select(selectBooking);
+                    ivCheckEdit.setVisible(true);
                 }
-                selectBooking = mainApp.getConverter().convertBookingVO(bookingVO);
-                tvBooking.getSelectionModel().select(selectBooking);
-                ivCheckEdit.setVisible(true);
+            }else {
+                // Nothing selected.
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("No seleccionado");
+                alert.setContentText("No has seleccionado ninguna Reserva");
+                alert.showAndWait();
             }
-        }else {
-            // Nothing selected.
+        } else {
+            // Date is not valid.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
-            alert.setTitle("No seleccionado");
-            alert.setContentText("No has seleccionado ninguna Reserva");
+            alert.setTitle("Las fechas no coinciden");
+            alert.setContentText("No coinciden las fechas");
             alert.showAndWait();
         }
     }

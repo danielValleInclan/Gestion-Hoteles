@@ -12,8 +12,8 @@ public class Model {
         repository.addBookingVO(bookingVO);
     }
 
-    public void editBookingVO(BookingVO bookingVO, int id) throws ExeptionBooking {
-        repository.editBookingVO(bookingVO, id);
+    public void editBookingVO(BookingVO bookingVO) throws ExeptionBooking {
+        repository.editBookingVO(bookingVO, bookingVO.getId());
     }
 
     public void deleteBookingVO(int id) throws ExeptionBooking {
