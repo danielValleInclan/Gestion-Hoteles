@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -13,6 +14,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="447.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.BookingController">
    <children>
@@ -33,25 +35,44 @@
             </AnchorPane>
           <AnchorPane prefHeight="366.0" prefWidth="496.0">
                <children>
-                  <Button fx:id="bCreate" layoutX="304.0" layoutY="373.0" mnemonicParsing="false" onAction="#handleNewBooking" text="Crear" />
-                  <Button fx:id="bEdit" layoutX="368.0" layoutY="373.0" mnemonicParsing="false" onAction="#handleEditBooking" text="Modificar" />
-                  <Button fx:id="bDelete" layoutX="461.0" layoutY="373.0" mnemonicParsing="false" onAction="#handleDeleteBooking" text="Eliminar" />
-                  <Label layoutX="14.0" layoutY="14.0" text="Fecha de llegada" />
-                  <Label layoutX="410.0" layoutY="14.0" text="Fecha de salida" AnchorPane.rightAnchor="38.0" />
-                  <DatePicker fx:id="dpArriveDate" layoutX="14.0" layoutY="59.0" />
-                  <DatePicker fx:id="dpDepartureDate" layoutX="347.0" layoutY="56.0" />
-                  <Label layoutX="14.0" layoutY="120.0" text="Número de habitaciones" />
-                  <Spinner fx:id="sNroom" disable="true" layoutX="212.0" layoutY="116.0" prefHeight="24.0" prefWidth="72.0">
+                  <HBox layoutX="304.0" layoutY="373.0" AnchorPane.rightAnchor="16.0">
+                     <children>
+                        <Button fx:id="bCreate" mnemonicParsing="false" onAction="#handleNewBooking" text="Crear">
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#handleEditBooking" text="Modificar">
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="bDelete" mnemonicParsing="false" onAction="#handleDeleteBooking" text="Eliminar">
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                  </HBox>
+                  <Label layoutX="14.0" layoutY="14.0" text="Fecha de llegada" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="16.0" />
+                  <Label layoutX="410.0" layoutY="14.0" text="Fecha de salida" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0" />
+                  <DatePicker fx:id="dpArriveDate" layoutX="14.0" layoutY="59.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="56.0" />
+                  <DatePicker fx:id="dpDepartureDate" layoutX="347.0" layoutY="56.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="56.0" />
+                  <Label layoutX="14.0" layoutY="120.0" text="Número de habitaciones" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="124.0" />
+                  <Spinner fx:id="sNroom" disable="true" layoutX="212.0" layoutY="116.0" prefHeight="24.0" prefWidth="72.0" AnchorPane.topAnchor="124.0">
                       <valueFactory>
                           <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="1" min="1" />
                       </valueFactory>
                    </Spinner>
-                  <CheckBox fx:id="cbSmoke" layoutX="398.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleSmoke" text="Fumador" />
-                  <ChoiceBox fx:id="cbTypeRoom" layoutX="160.0" layoutY="182.0" prefWidth="150.0" />
-                  <Label layoutX="9.0" layoutY="186.0" text="Tipo de Habitación" />
-                  <ChoiceBox fx:id="cbRegime" layoutX="160.0" layoutY="223.0" prefWidth="150.0" />
-                  <Label layoutX="14.0" layoutY="227.0" text="Tipo de Régimen" />
-                  <Button layoutX="385.0" layoutY="231.0" mnemonicParsing="false" onAction="#showDefaultDetails" text="Restaurar Valores" />
+                  <CheckBox fx:id="cbSmoke" layoutX="398.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleSmoke" text="Fumador" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="124.0" />
+                  <ChoiceBox fx:id="cbTypeRoom" layoutX="160.0" layoutY="182.0" prefWidth="150.0" AnchorPane.leftAnchor="172.0" />
+                  <Label layoutX="9.0" layoutY="186.0" text="Tipo de Habitación" AnchorPane.leftAnchor="16.0" />
+                  <ChoiceBox fx:id="cbRegime" layoutX="160.0" layoutY="223.0" prefWidth="150.0" AnchorPane.leftAnchor="172.0" />
+                  <Label layoutX="14.0" layoutY="227.0" text="Tipo de Régimen" AnchorPane.leftAnchor="16.0" />
+                  <Button layoutX="385.0" layoutY="231.0" mnemonicParsing="false" onAction="#showDefaultDetails" text="Restaurar Valores" AnchorPane.rightAnchor="16.0" />
                    <ImageView fx:id="ivCheckEdit" fitHeight="24.0" fitWidth="22.0" layoutX="424.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true" visible="false">
                        <image>
                            <Image url="@check.png" />
