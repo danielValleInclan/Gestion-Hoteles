@@ -2,9 +2,11 @@ package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.Model;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -24,11 +26,11 @@ public class RoomsController {
 
     @FXML
     private ProgressBar pbHabitaciones;
-
     @FXML
-    private Button bNext;
+    private ProgressIndicator pi;
     @FXML
     private ImageView ivNext, ivPrev;
+    private IntegerProperty valuePI = new SimpleIntegerProperty();
     private int i;
 
     @FXML
@@ -72,6 +74,15 @@ public class RoomsController {
             i--;
             ivRoom.setImage(imageHashMap.get(i));
         }
+    }
+
+    public void updateProgressIcon() {
+        this.valuePI.bind(model.getNumBooking());
+        this.pi.setProgress((double) valuePI.getValue() / 50);
+        this.pi.setProgress(Double.parseDouble(valuePI.getValue()+ "/50"));
+        valuePI.addListener((observableValue, number, t1) -> {
+            pi.setProgress( (double) valuePI.getValue() / 50);
+        });
     }
 
     public void setMainApp(MainApp mainApp) {

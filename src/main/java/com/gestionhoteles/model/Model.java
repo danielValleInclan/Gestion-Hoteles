@@ -2,11 +2,30 @@ package com.gestionhoteles.model;
 
 import com.gestionhoteles.model.repository.Repository;
 import com.gestionhoteles.util.Converter;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
 public class Model {
     private Repository repository;
+    private IntegerProperty numBooking = new SimpleIntegerProperty();
+
+    public IntegerProperty getNumBooking(){
+        return this.numBooking;
+    }
+
+    public void setNumBooking(Integer num){
+        this.numBooking.set(num);
+    }
+
+    public void incNumBooking(){
+        this.numBooking.set(numBooking.get()+1);
+    }
+
+    public void decNumBooking(){
+        this.numBooking.set(numBooking.get()-1);
+    }
 
     public void addBookingVO(BookingVO bookingVO) throws ExeptionBooking {
         repository.addBookingVO(bookingVO);
