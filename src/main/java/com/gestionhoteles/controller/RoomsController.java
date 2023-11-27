@@ -27,9 +27,8 @@ public class RoomsController {
 
     @FXML
     private Button bNext;
-
     @FXML
-    private Button bPrev;
+    private ImageView ivNext, ivPrev;
     private int i;
 
     @FXML
@@ -45,6 +44,10 @@ public class RoomsController {
         // Inicializar la imagen mostrada al iniciar la ventana
         i = 1;
         ivRoom.setImage(imageHashMap.get(i));
+
+        ivNext.setOnMouseClicked(mouseEvent -> nextImg());
+        ivPrev.setOnMouseClicked(mouseEvent -> prevImg());
+
     }
 
     @FXML
@@ -56,6 +59,8 @@ public class RoomsController {
             i++;
             ivRoom.setImage(imageHashMap.get(i));
         }
+        ivRoom.setFitHeight(460);
+        ivRoom.setFitWidth(720);
     }
 
     @FXML

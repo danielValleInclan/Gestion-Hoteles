@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.RoomsController">
-      <Label layoutX="382.0" layoutY="22.0" text="TIPO HABITACION" AnchorPane.topAnchor="16.0" />
-      <ImageView fx:id="ivRoom" fitHeight="460.0" fitWidth="720.0" layoutX="5.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="52.0" />
-      <ProgressBar fx:id="pbHabitaciones" layoutX="340.0" layoutY="484.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="16.0" />
-      <Button fx:id="bNext" layoutX="729.0" layoutY="235.0" mnemonicParsing="false" onAction="#nextImg" text="Sig." AnchorPane.rightAnchor="16.0" />
-      <Button fx:id="bPrev" layoutX="42.0" layoutY="235.0" mnemonicParsing="false" onAction="#prevImg" text="Ant." AnchorPane.leftAnchor="16.0" />
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.RoomsController">
+   <children>
+         <Label layoutX="382.0" layoutY="22.0" text="TIPO HABITACION" AnchorPane.topAnchor="16.0" />
+      <HBox alignment="CENTER" layoutX="16.0" layoutY="52.0" spacing="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="40.0">
+         <children>
+               <ImageView fx:id="ivPrev" fitHeight="59.0" fitWidth="71.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0">
+                     <image>
+                           <Image url="@flecha_izq.png" />
+                     </image>
+               </ImageView>
+               <ImageView fx:id="ivRoom" fitHeight="460.0" fitWidth="720.0" layoutX="5.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="52.0" />
+               <ImageView fx:id="ivNext" fitHeight="59.0" fitWidth="71.0" layoutX="729.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                     <image>
+                           <Image url="@flecha_der.png" />
+                     </image>
+               </ImageView>
+         </children>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </HBox>
+         <ProgressBar fx:id="pbHabitaciones" layoutX="340.0" layoutY="484.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="16.0" />
+   </children>
 </AnchorPane>
