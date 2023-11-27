@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -13,7 +17,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.MainVIewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.MainVIewController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -70,10 +74,10 @@
                      </image></ImageView>
                   <Button fx:id="bBooking" layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#openBooking" text="Abrir reservas cliente" AnchorPane.topAnchor="208.0" />
                    <TextField fx:id="tfSearch" layoutX="17.0" layoutY="276.0" onKeyPressed="#handleSearchBookingKey" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="280.0" />
-                   <Label layoutX="252.0" layoutY="280.0" text="Buscar Reservas" AnchorPane.rightAnchor="32.0" />
+                   <Label layoutX="25.0" layoutY="255.0" text="Buscar Reservas por DNI" AnchorPane.leftAnchor="16.0" />
 
                    <!-- Cambia el botón de búsqueda por una ImageView con la imagen de la lupa -->
-                   <ImageView fx:id="searchIcon" fitHeight="16.0" fitWidth="16.0" layoutX="140.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fx:id="searchIcon" fitHeight="16.0" fitWidth="16.0" layoutX="191.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
                        <image>
                            <Image url="@lupa.png" />
                        </image>
