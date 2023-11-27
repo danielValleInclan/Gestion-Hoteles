@@ -40,7 +40,7 @@ public class MainVIewController {
     private Button bBooking;
     @FXML TextField tfSearch;
     @FXML
-    private Button bSearch;
+    private ImageView searchIcon;
 
 
     /**
@@ -65,6 +65,15 @@ public class MainVIewController {
         // Listen for selection changes and show the client details when changed.
         clientTable.getSelectionModel().selectedItemProperty().addListener((
                 (observableValue, oldValue, newValue) -> showClientDetails(newValue)));
+
+        searchIcon.setOnMouseClicked(event -> {
+            try {
+                handleSearchBooking();
+            } catch (ExeptionBooking e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
 
