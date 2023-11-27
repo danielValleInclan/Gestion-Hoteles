@@ -2,7 +2,6 @@ package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
 import com.gestionhoteles.model.Model;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -36,11 +35,12 @@ public class RoomsController {
     @FXML
     private void initialize(){
         imageHashMap = new HashMap<>();
+        System.out.println("Ruta double.jpg: " + MainApp.class.getResource("double.jpg"));
 
-        imageHashMap.put(1, new Image(String.valueOf(getClass().getResource("doble.jpg"))));
-        imageHashMap.put(2, new Image("dobleInd.jpeg"));
-        imageHashMap.put(3, new Image("juniorSuite.jpg"));
-        imageHashMap.put(4, new Image("suite.jpg"));
+        imageHashMap.put(1, new Image(String.valueOf(MainApp.class.getResource("double.jpg"))));
+        imageHashMap.put(2, new Image(String.valueOf(MainApp.class.getResource("junior_suite.jpg"))));
+        imageHashMap.put(3, new Image(String.valueOf(MainApp.class.getResource("double_indv.jpg"))));
+        imageHashMap.put(4, new Image(String.valueOf(MainApp.class.getResource("suite.jpg"))));
 
         // Inicializar la imagen mostrada al iniciar la ventana
         i = 1;
