@@ -10,9 +10,18 @@ import java.util.ArrayList;
 public class Model {
     private Repository repository;
     private IntegerProperty numBooking = new SimpleIntegerProperty();
+    private IntegerProperty numBookingDouble = new SimpleIntegerProperty();
 
     public IntegerProperty getNumBooking(){
         return this.numBooking;
+    }
+
+    public void getNumDouble() throws ExeptionBooking {
+        for (BookingVO bookingVO : repository.GetListBookingVO()){
+            if (bookingVO.getStringTRoom().equals("DOUBLE")){
+                numBookingDouble.set(numBookingDouble.get()+1);
+            }
+        }
     }
 
     public void setNumBooking(Integer num){
