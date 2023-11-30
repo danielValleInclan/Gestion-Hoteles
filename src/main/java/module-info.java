@@ -7,6 +7,7 @@ module com.gestionhoteles {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires javafx.web;
 
     opens com.gestionhoteles.controller to javafx.fxml;
     exports com.gestionhoteles;

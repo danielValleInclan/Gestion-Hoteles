@@ -262,6 +262,33 @@ public class MainApp extends Application {
         }
     }
 
+    public void showWebJD(){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("WebJD.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("JavaDoc");
+            dialogStage.initModality(Modality.NONE);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            WebJDController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setStage(dialogStage);
+            controller.setModel(model);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+
     public static void main(String[] args) {
         launch();
     }
