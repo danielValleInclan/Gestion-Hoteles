@@ -12,6 +12,11 @@ public class RootLayoutController {
         mainApp.showRoomsView();
     }
 
+    @FXML
+    private void openGraphic() {
+        mainApp.showGraphic();
+    }
+
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
     }

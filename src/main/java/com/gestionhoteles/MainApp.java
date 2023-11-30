@@ -24,8 +24,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     private final Model model = new Model();
     private ObservableList<Client> clientsData = FXCollections.observableArrayList();
-    //private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
-    private ObservableList<Booking> bookingData_Client;
+    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     Converter converter = new Converter();
 
     public Converter getConverter(){
@@ -40,17 +39,17 @@ public class MainApp extends Application {
             ArrayList<ClientVO> clientVOS = model.GetListClienteVO();
             ArrayList<Client> clients = converter.convertListCVO(clientVOS);
             clientsData.addAll(clients);
-            /*
             ArrayList<BookingVO> bookingVOS = model.GetListBookingVO();
             ArrayList<Booking> bookings = converter.convertListBVO(bookingVOS);
-            //bookingData.addAll(bookings);
-             */
+            bookingData.addAll(bookings);
         } catch (ExceptionClient e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Error al listar a los clientes.");
             alert.setTitle("Error con la base de datos");
             alert.setContentText("No se puede conectar con la base de datos");
             alert.showAndWait();
+        } catch (ExeptionBooking e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -231,6 +230,35 @@ public class MainApp extends Application {
             throw new RuntimeException();
         } catch (ExeptionBooking e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void showGraphic() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("GraphicView.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Gráfico");
+            dialogStage.initModality(Modality.NONE);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            GraphicController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setStage(dialogStage);
+            controller.setModel(model);
+            controller.setBookings(bookingData);
+            //controller.updateProgressIcon();
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 
