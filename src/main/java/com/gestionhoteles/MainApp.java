@@ -224,10 +224,13 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setStage(dialogStage);
             controller.setModel(model);
+            controller.updateProgressIcon();
 
             dialogStage.showAndWait();
         } catch (IOException e) {
             throw new RuntimeException();
+        } catch (ExeptionBooking e) {
+            throw new RuntimeException(e);
         }
     }
 

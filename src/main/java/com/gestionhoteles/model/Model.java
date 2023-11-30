@@ -1,7 +1,6 @@
 package com.gestionhoteles.model;
 
 import com.gestionhoteles.model.repository.Repository;
-import com.gestionhoteles.util.Converter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -11,17 +10,55 @@ public class Model {
     private Repository repository;
     private IntegerProperty numBooking = new SimpleIntegerProperty();
     private IntegerProperty numBookingDouble = new SimpleIntegerProperty();
+    private IntegerProperty numBookingDoubleInd = new SimpleIntegerProperty();
+    private IntegerProperty numBookingJunior = new SimpleIntegerProperty();
+    private IntegerProperty numBookingSuite = new SimpleIntegerProperty();
 
     public IntegerProperty getNumBooking(){
         return this.numBooking;
     }
 
-    public void getNumDouble() throws ExeptionBooking {
+
+    // get num of rooms
+
+    public IntegerProperty getNumBookingDoubles() throws ExeptionBooking {
+        numBookingDouble.set(0);
         for (BookingVO bookingVO : repository.GetListBookingVO()){
             if (bookingVO.getStringTRoom().equals("DOUBLE")){
                 numBookingDouble.set(numBookingDouble.get()+1);
             }
         }
+        return numBookingDouble;
+    }
+
+    public IntegerProperty getNumBookingDoubleInd() throws ExeptionBooking {
+        numBookingDoubleInd.set(0);
+        for (BookingVO bookingVO : repository.GetListBookingVO()){
+            if (bookingVO.getStringTRoom().equals("DOUBLE_SIGLE_USE")){
+                numBookingDoubleInd.set(numBookingDoubleInd.get()+1);
+            }
+        }
+        return numBookingDoubleInd;
+    }
+
+    public IntegerProperty getNumBookingJunior() throws ExeptionBooking {
+        numBookingJunior.set(0);
+        for (BookingVO bookingVO : repository.GetListBookingVO()){
+            if (bookingVO.getStringTRoom().equals("JUNIOR_SUITE")){
+                numBookingJunior.set(numBookingJunior.get()+1);
+            }
+        }
+        return numBookingJunior;
+    }
+
+    public IntegerProperty getNumBookingSuite() throws ExeptionBooking {
+        numBookingSuite.set(0);
+        for (BookingVO bookingVO : repository.GetListBookingVO()){
+            if (bookingVO.getStringTRoom().equals("SUITE")){
+                numBookingSuite.set(numBookingSuite.get()+1);
+            }
+        }
+        return numBookingSuite;
     }
 
     public void setNumBooking(Integer num){

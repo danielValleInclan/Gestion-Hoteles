@@ -1,11 +1,11 @@
 package com.gestionhoteles.controller;
 
 import com.gestionhoteles.MainApp;
+import com.gestionhoteles.model.ExeptionBooking;
 import com.gestionhoteles.model.Model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,12 +25,14 @@ public class RoomsController {
     private ImageView ivRoom;
 
     @FXML
-    private ProgressBar pbHabitaciones;
-    @FXML
     private ProgressIndicator pi;
     @FXML
     private ImageView ivNext, ivPrev;
-    private IntegerProperty valuePI = new SimpleIntegerProperty();
+    private IntegerProperty valuePIDouble = new SimpleIntegerProperty();
+    private IntegerProperty valuePIJunior = new SimpleIntegerProperty();
+    private IntegerProperty valuePIDoubleI = new SimpleIntegerProperty();
+    private IntegerProperty valuePISuite = new SimpleIntegerProperty();
+    private IntegerProperty typeIndicator = new SimpleIntegerProperty();
     private int i;
 
     @FXML
@@ -45,15 +47,28 @@ public class RoomsController {
 
         // Inicializar la imagen mostrada al iniciar la ventana
         i = 1;
+        typeIndicator.set(i);
         ivRoom.setImage(imageHashMap.get(i));
 
-        ivNext.setOnMouseClicked(mouseEvent -> nextImg());
-        ivPrev.setOnMouseClicked(mouseEvent -> prevImg());
+        ivNext.setOnMouseClicked(mouseEvent -> {
+            try {
+                nextImg();
+            } catch (ExeptionBooking e) {
+                throw new RuntimeException(e);
+            }
+        });
+        ivPrev.setOnMouseClicked(mouseEvent -> {
+            try {
+                prevImg();
+            } catch (ExeptionBooking e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
     @FXML
-    private void nextImg(){
+    private void nextImg() throws ExeptionBooking {
         if (i == 4){
             i = 1;
             ivRoom.setImage(imageHashMap.get(i));
@@ -61,12 +76,12 @@ public class RoomsController {
             i++;
             ivRoom.setImage(imageHashMap.get(i));
         }
-        ivRoom.setFitHeight(460);
-        ivRoom.setFitWidth(720);
+        typeIndicator.set(i);
+        updateProgressIcon();
     }
 
     @FXML
-    private void prevImg(){
+    private void prevImg() throws ExeptionBooking {
         if (i == 1){
             i = 4;
             ivRoom.setImage(imageHashMap.get(i));
@@ -74,15 +89,42 @@ public class RoomsController {
             i--;
             ivRoom.setImage(imageHashMap.get(i));
         }
+        typeIndicator.set(i);
+        updateProgressIcon();
     }
 
-    public void updateProgressIcon() {
-        this.valuePI.bind(model.getNumBooking());
-        this.pi.setProgress((double) valuePI.getValue() / 50);
-        this.pi.setProgress(Double.parseDouble(valuePI.getValue()+ "/50"));
-        valuePI.addListener((observableValue, number, t1) -> {
-            pi.setProgress( (double) valuePI.getValue() / 50);
-        });
+    public void updateProgressIcon() throws ExeptionBooking {
+        System.out.println("Entrar al switch: " + typeIndicator.getValue());
+        switch (typeIndicator.getValue()){
+            case 1: // double suite
+                this.valuePIDouble.bind(model.getNumBookingDoubles());
+                this.pi.setProgress((double) valuePIDouble.getValue() / 50);
+                valuePIDouble.addListener((observableValue, number, t1) -> {
+                    pi.setProgress( (double) valuePIDouble.getValue() / 50);
+                });
+                break;
+            case 2: // junior suite
+                this.valuePIJunior.bind(model.getNumBookingJunior());
+                this.pi.setProgress((double) valuePIJunior.getValue() / 50);
+                valuePIJunior.addListener((observableValue, number, t1) -> {
+                    pi.setProgress( (double) valuePIJunior.getValue() / 50);
+                });
+                break;
+            case 3: // double individual use suite
+                this.valuePIDoubleI.bind(model.getNumBookingDoubleInd());
+                this.pi.setProgress((double) valuePIDouble.getValue() / 50);
+                valuePIDoubleI.addListener((observableValue, number, t1) -> {
+                    pi.setProgress( (double) valuePIDoubleI.getValue() / 50);
+                });
+                break;
+            case 4: // suite
+                this.valuePISuite.bind(model.getNumBookingSuite());
+                this.pi.setProgress((double) valuePISuite.getValue() / 50);
+                valuePISuite.addListener((observableValue, number, t1) -> {
+                    pi.setProgress( (double) valuePISuite.getValue() / 50);
+                });
+                break;
+        }
     }
 
     public void setMainApp(MainApp mainApp) {
