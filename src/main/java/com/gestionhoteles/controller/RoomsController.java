@@ -37,7 +37,7 @@ public class RoomsController {
     private IntegerProperty valuePIJunior = new SimpleIntegerProperty();
     private IntegerProperty valuePIDoubleI = new SimpleIntegerProperty();
     private IntegerProperty valuePISuite = new SimpleIntegerProperty();
-    private IntegerProperty typeIndicator = new SimpleIntegerProperty();
+    private int typeIndicator;
     private int i;
 
     @FXML
@@ -51,7 +51,7 @@ public class RoomsController {
 
         // Inicializar la imagen mostrada al iniciar la ventana
         i = 1;
-        typeIndicator.set(i);
+        typeIndicator = 1;
         ivRoom.setImage(imageHashMap.get(i));
 
         ivNext.setOnMouseClicked(mouseEvent -> {
@@ -86,7 +86,7 @@ public class RoomsController {
             ivRoom.setImage(imageHashMap.get(i));
         }
         typeRoom.setText(typeRooms.get(i));
-        typeIndicator.set(i);
+        typeIndicator = i;
         updateProgressIcon();
     }
 
@@ -100,12 +100,12 @@ public class RoomsController {
             ivRoom.setImage(imageHashMap.get(i));
         }
         typeRoom.setText(typeRooms.get(i));
-        typeIndicator.set(i);
+        typeIndicator = 1;
         updateProgressIcon();
     }
 
     public void updateProgressIcon() throws ExeptionBooking {
-        switch (typeIndicator.getValue()){
+        switch (typeIndicator){
             case 1: // double suite
                 this.valuePIDouble.bind(model.getNumBookingDoubles());
                 this.pi.setProgress((double) valuePIDouble.getValue() / 80);
