@@ -13,6 +13,9 @@ import java.net.ConnectException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Controlador Reservas
+ */
 public class BookingController {
 
     private MainApp mainApp;

@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Clase principal de la aplicación Gestion Hoteles.
+ * Extiende la clase `Application` de JavaFX.
+ */
 public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -27,11 +31,19 @@ public class MainApp extends Application {
     private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     Converter converter = new Converter();
 
-    public Converter getConverter(){
+    /**
+     * Retorna el objeto Converter utilizado en la aplicación.
+     * @return El objeto Converter.
+     */
+    public Converter getConverter() {
         return converter;
     }
 
-    public MainApp(){
+    /**
+     * Constructor de la clase MainApp.
+     * Inicializa la aplicación y carga datos iniciales desde la base de datos.
+     */
+    public MainApp() {
         Repository repository = new RepositoryImpl();
         model.setRepository(repository);
 
@@ -54,15 +66,18 @@ public class MainApp extends Application {
 
     }
 
-
+    /**
+     * Retorna la lista observable de clientes utilizada en la aplicación.
+     * @return La lista observable de clientes.
+     */
     public ObservableList<Client> getClientData() {
         return clientsData;
     }
 
-    //public ObservableList<Booking> getBookingData() {
-      //  return bookingData;
-    //}
-
+    /**
+     * Método principal que se llama al iniciar la aplicación.
+     * @param stage El escenario principal de la aplicación.
+     */
     @Override
     public void start(Stage stage) {
         this.primaryStage = stage;
@@ -72,15 +87,14 @@ public class MainApp extends Application {
         showMainView();
     }
 
+    /**
+     * Inicializa el diseño de la raíz de la aplicación cargando el archivo FXML correspondiente.
+     */
     public void initRootLayout() {
         try {
-            // Load root layout from fxml file.
-            // FXMLLoader loader = new FXMLLoader();
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("RootLayout.fxml"));
-            // loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
             rootLayout = loader.load();
 
-            // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -92,35 +106,37 @@ public class MainApp extends Application {
         }
     }
 
-    public void showMainView(){
+    /**
+     * Muestra la vista principal de la aplicación cargando el archivo FXML correspondiente.
+     */
+    public void showMainView() {
         try {
-            // Load main view.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("MainView.fxml"));
             AnchorPane mainView = loader.load();
 
-            // Set main view into the center of root layout.
             rootLayout.setCenter(mainView);
 
-            // Give the controller access to the main app.
             MainVIewController controller = loader.getController();
             controller.setMainApp(this);
             controller.setModel(model);
 
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-
     }
 
-    public boolean showNewClient(Client client){
+    /**
+     * Muestra una ventana para agregar un nuevo cliente.
+     * @param client El cliente a agregar (puede ser null si es un nuevo cliente).
+     * @return true si el usuario hizo clic en Aceptar, false si no.
+     */
+    public boolean showNewClient(Client client) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("NewClient.fxml"));
             AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Nuevo Cliente");
             dialogStage.initModality(Modality.NONE);
@@ -128,7 +144,6 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             NewClientController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
@@ -169,17 +184,21 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
-    public void showBookingView (Client client) throws ExeptionBooking {
+
+    /**
+     * Muestra la vista de reservas para un cliente específico.
+     * @param client El cliente para el cual mostrar las reservas.
+     * @throws ExeptionBooking Si ocurre un error al obtener las reservas.
+     */
+    public void showBookingView(Client client) throws ExeptionBooking {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("BookingView.fxml"));
             AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Reservas");
             dialogStage.initModality(Modality.NONE);
@@ -187,7 +206,6 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Give the controller access to the main app.
             BookingController controller = loader.getController();
             controller.setMainApp(this);
             controller.setStage(dialogStage);
@@ -197,20 +215,21 @@ public class MainApp extends Application {
 
             dialogStage.showAndWait();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         } catch (ExeptionBooking e) {
             throw new ExeptionBooking("No se ha podido realizar la operación");
         }
     }
 
+    /**
+     * Muestra la vista de habitaciones y su disponibilidad.
+     */
     public void showRoomsView() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("RoomsView.fxml"));
             AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Habitaciones");
             dialogStage.initModality(Modality.NONE);
@@ -218,7 +237,6 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Give the controller access to the main app.
             RoomsController controller = loader.getController();
             controller.setMainApp(this);
             controller.setStage(dialogStage);
@@ -227,20 +245,21 @@ public class MainApp extends Application {
 
             dialogStage.showAndWait();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         } catch (ExeptionBooking e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Muestra la vista gráfica de las reservas.
+     */
     public void showGraphic() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("GraphicView.fxml"));
             AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Gráfico");
             dialogStage.initModality(Modality.NONE);
@@ -248,28 +267,27 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Give the controller access to the main app.
             GraphicController controller = loader.getController();
             controller.setMainApp(this);
             controller.setStage(dialogStage);
             controller.setModel(model);
             controller.setBookings(bookingData);
-            //controller.updateProgressIcon();
 
             dialogStage.showAndWait();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
-    public void showWebJD(){
+    /**
+     * Muestra la vista del JavaDoc de la aplicación.
+     */
+    public void showWebJD() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("WebJD.fxml"));
             AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("JavaDoc");
             dialogStage.initModality(Modality.NONE);
@@ -277,7 +295,6 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Give the controller access to the main app.
             WebJDController controller = loader.getController();
             controller.setMainApp(this);
             controller.setStage(dialogStage);
@@ -285,10 +302,14 @@ public class MainApp extends Application {
 
             dialogStage.showAndWait();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Método principal que lanza la aplicación.
+     * @param args Argumentos de la línea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
         launch();
     }
