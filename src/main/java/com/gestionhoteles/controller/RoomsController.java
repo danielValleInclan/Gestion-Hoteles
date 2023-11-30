@@ -6,6 +6,7 @@ import com.gestionhoteles.model.Model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +29,10 @@ public class RoomsController {
     private ProgressIndicator pi;
     @FXML
     private ImageView ivNext, ivPrev;
+    @FXML
+    private Label typeRoom;
+    private HashMap<Integer, String> typeRooms = new HashMap<Integer, String>();
+
     private IntegerProperty valuePIDouble = new SimpleIntegerProperty();
     private IntegerProperty valuePIJunior = new SimpleIntegerProperty();
     private IntegerProperty valuePIDoubleI = new SimpleIntegerProperty();
@@ -65,6 +70,11 @@ public class RoomsController {
             }
         });
 
+        typeRooms.put(1, "Habitación doble");
+        typeRooms.put(2, "Junior Suite");
+        typeRooms.put(3, "Doble de uso individual");
+        typeRooms.put(4, "Habitación Suite");
+        typeRoom.setText(typeRooms.get(i));
     }
 
     @FXML
@@ -76,6 +86,7 @@ public class RoomsController {
             i++;
             ivRoom.setImage(imageHashMap.get(i));
         }
+        typeRoom.setText(typeRooms.get(i));
         typeIndicator.set(i);
         updateProgressIcon();
     }
@@ -89,6 +100,7 @@ public class RoomsController {
             i--;
             ivRoom.setImage(imageHashMap.get(i));
         }
+        typeRoom.setText(typeRooms.get(i));
         typeIndicator.set(i);
         updateProgressIcon();
     }

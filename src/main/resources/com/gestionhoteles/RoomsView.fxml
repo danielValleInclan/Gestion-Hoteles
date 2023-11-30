@@ -14,7 +14,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionhoteles.controller.RoomsController">
    <children>
-         <Label layoutX="382.0" layoutY="22.0" text="TIPO HABITACION" AnchorPane.topAnchor="16.0" />
+         <Label fx:id="typeRoom" layoutX="382.0" layoutY="22.0" text="TIPO HABITACION" AnchorPane.topAnchor="16.0" />
       <HBox alignment="CENTER" layoutX="16.0" layoutY="52.0" spacing="20.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="40.0">
          <children>
                <ImageView fx:id="ivPrev" fitHeight="59.0" fitWidth="71.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0">
