@@ -8,7 +8,6 @@ module com.gestionhoteles {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens com.gestionhoteles to javafx.fxml;
     opens com.gestionhoteles.controller to javafx.fxml;
     exports com.gestionhoteles;
 }

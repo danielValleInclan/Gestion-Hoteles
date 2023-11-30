@@ -70,7 +70,7 @@
                   <Button layoutX="332.0" layoutY="30.0" mnemonicParsing="false" onAction="#showDefaultDetails" text="Revertir" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0" />
                   <ImageView fx:id="ivCheckEdit" fitHeight="25.0" fitWidth="24.0" layoutX="378.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="136.0" AnchorPane.rightAnchor="8.0">
                      <image>
-                        <Image url="@check.png" />
+                        <Image url="@images/check.png" />
                      </image></ImageView>
                   <Button fx:id="bBooking" layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#openBooking" text="Abrir reservas cliente" AnchorPane.topAnchor="208.0" />
                    <TextField fx:id="tfSearch" layoutX="17.0" layoutY="276.0" onKeyPressed="#handleSearchBookingKey" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="280.0" />
@@ -79,7 +79,7 @@
                    <!-- Cambia el botón de búsqueda por una ImageView con la imagen de la lupa -->
                    <ImageView fx:id="searchIcon" fitHeight="16.0" fitWidth="16.0" layoutX="191.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@lupa.png" />
+                           <Image url="@images/lupa.png" />
                        </image>
                    </ImageView>
                </children>

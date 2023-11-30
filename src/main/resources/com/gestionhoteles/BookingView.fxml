@@ -75,7 +75,7 @@
                   <Button layoutX="385.0" layoutY="231.0" mnemonicParsing="false" onAction="#showDefaultDetails" text="Restaurar Valores" AnchorPane.rightAnchor="16.0" />
                    <ImageView fx:id="ivCheckEdit" fitHeight="24.0" fitWidth="22.0" layoutX="424.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true" visible="false">
                        <image>
-                           <Image url="@check.png" />
+                           <Image url="@images/check.png" />
                        </image></ImageView>
                   <Label fx:id="lAd" layoutX="23.0" layoutY="288.0" prefHeight="47.0" prefWidth="584.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                </children>

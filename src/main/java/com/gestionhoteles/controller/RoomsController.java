@@ -40,10 +40,10 @@ public class RoomsController {
         imageHashMap = new HashMap<>();
         System.out.println("Ruta double.jpg: " + MainApp.class.getResource("double.jpg"));
 
-        imageHashMap.put(1, new Image(String.valueOf(MainApp.class.getResource("double.jpg"))));
-        imageHashMap.put(2, new Image(String.valueOf(MainApp.class.getResource("junior_suite.jpg"))));
-        imageHashMap.put(3, new Image(String.valueOf(MainApp.class.getResource("double_indv.jpg"))));
-        imageHashMap.put(4, new Image(String.valueOf(MainApp.class.getResource("suite.jpg"))));
+        imageHashMap.put(1, new Image(String.valueOf(MainApp.class.getResource("images/double.jpg"))));
+        imageHashMap.put(2, new Image(String.valueOf(MainApp.class.getResource("images/junior_suite.jpg"))));
+        imageHashMap.put(3, new Image(String.valueOf(MainApp.class.getResource("images/double_indv.jpg"))));
+        imageHashMap.put(4, new Image(String.valueOf(MainApp.class.getResource("images/suite.jpg"))));
 
         // Inicializar la imagen mostrada al iniciar la ventana
         i = 1;
@@ -94,34 +94,33 @@ public class RoomsController {
     }
 
     public void updateProgressIcon() throws ExeptionBooking {
-        System.out.println("Entrar al switch: " + typeIndicator.getValue());
         switch (typeIndicator.getValue()){
             case 1: // double suite
                 this.valuePIDouble.bind(model.getNumBookingDoubles());
-                this.pi.setProgress((double) valuePIDouble.getValue() / 50);
+                this.pi.setProgress((double) valuePIDouble.getValue() / 80);
                 valuePIDouble.addListener((observableValue, number, t1) -> {
-                    pi.setProgress( (double) valuePIDouble.getValue() / 50);
+                    pi.setProgress( (double) valuePIDouble.getValue() / 80);
                 });
                 break;
             case 2: // junior suite
                 this.valuePIJunior.bind(model.getNumBookingJunior());
-                this.pi.setProgress((double) valuePIJunior.getValue() / 50);
+                this.pi.setProgress((double) valuePIJunior.getValue() / 15);
                 valuePIJunior.addListener((observableValue, number, t1) -> {
-                    pi.setProgress( (double) valuePIJunior.getValue() / 50);
+                    pi.setProgress( (double) valuePIJunior.getValue() / 15);
                 });
                 break;
             case 3: // double individual use suite
                 this.valuePIDoubleI.bind(model.getNumBookingDoubleInd());
-                this.pi.setProgress((double) valuePIDouble.getValue() / 50);
+                this.pi.setProgress((double) valuePIDouble.getValue() / 20);
                 valuePIDoubleI.addListener((observableValue, number, t1) -> {
-                    pi.setProgress( (double) valuePIDoubleI.getValue() / 50);
+                    pi.setProgress( (double) valuePIDoubleI.getValue() / 20);
                 });
                 break;
             case 4: // suite
                 this.valuePISuite.bind(model.getNumBookingSuite());
-                this.pi.setProgress((double) valuePISuite.getValue() / 50);
+                this.pi.setProgress((double) valuePISuite.getValue() / 5);
                 valuePISuite.addListener((observableValue, number, t1) -> {
-                    pi.setProgress( (double) valuePISuite.getValue() / 50);
+                    pi.setProgress( (double) valuePISuite.getValue() / 5);
                 });
                 break;
         }
