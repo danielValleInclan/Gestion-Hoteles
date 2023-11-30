@@ -4,6 +4,7 @@ import com.gestionhoteles.model.repository.Repository;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Model {
@@ -24,7 +25,7 @@ public class Model {
     public IntegerProperty getNumBookingDoubles() throws ExeptionBooking {
         numBookingDouble.set(0);
         for (BookingVO bookingVO : repository.GetListBookingVO()){
-            if (bookingVO.getStringTRoom().equals("DOUBLE")){
+            if (bookingVO.getStringTRoom().equals("DOUBLE") && isDateValid(bookingVO)){
                 numBookingDouble.set(numBookingDouble.get()+1);
             }
         }
@@ -34,7 +35,7 @@ public class Model {
     public IntegerProperty getNumBookingDoubleInd() throws ExeptionBooking {
         numBookingDoubleInd.set(0);
         for (BookingVO bookingVO : repository.GetListBookingVO()){
-            if (bookingVO.getStringTRoom().equals("DOUBLE_SIGLE_USE")){
+            if (bookingVO.getStringTRoom().equals("DOUBLE_SIGLE_USE") && isDateValid(bookingVO)){
                 numBookingDoubleInd.set(numBookingDoubleInd.get()+1);
             }
         }
@@ -44,7 +45,7 @@ public class Model {
     public IntegerProperty getNumBookingJunior() throws ExeptionBooking {
         numBookingJunior.set(0);
         for (BookingVO bookingVO : repository.GetListBookingVO()){
-            if (bookingVO.getStringTRoom().equals("JUNIOR_SUITE")){
+            if (bookingVO.getStringTRoom().equals("JUNIOR_SUITE") && isDateValid(bookingVO)){
                 numBookingJunior.set(numBookingJunior.get()+1);
             }
         }
@@ -54,12 +55,21 @@ public class Model {
     public IntegerProperty getNumBookingSuite() throws ExeptionBooking {
         numBookingSuite.set(0);
         for (BookingVO bookingVO : repository.GetListBookingVO()){
-            if (bookingVO.getStringTRoom().equals("SUITE")){
+            if (bookingVO.getStringTRoom().equals("SUITE") && isDateValid(bookingVO)){
                 numBookingSuite.set(numBookingSuite.get()+1);
             }
         }
         return numBookingSuite;
     }
+
+
+    private boolean isDateValid(BookingVO bookingVO){
+        return (bookingVO.getDepartureDate().isAfter(LocalDate.now())
+                || bookingVO.getDepartureDate().isEqual(LocalDate.now()))
+                && (bookingVO.getArrivalDate().isBefore(LocalDate.now())
+                || bookingVO.getArrivalDate().isEqual(LocalDate.now()));
+    }
+
 
     public void setNumBooking(Integer num){
         this.numBooking.set(num);

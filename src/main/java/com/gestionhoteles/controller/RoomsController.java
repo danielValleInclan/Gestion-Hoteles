@@ -43,7 +43,6 @@ public class RoomsController {
     @FXML
     private void initialize(){
         imageHashMap = new HashMap<>();
-        System.out.println("Ruta double.jpg: " + MainApp.class.getResource("double.jpg"));
 
         imageHashMap.put(1, new Image(String.valueOf(MainApp.class.getResource("images/double.jpg"))));
         imageHashMap.put(2, new Image(String.valueOf(MainApp.class.getResource("images/junior_suite.jpg"))));
