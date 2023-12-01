@@ -161,7 +161,6 @@ public class MainVIewController {
             clientVO.setTown(tfTown.getText());
             clientVO.setProvince(tfProvince.getText());
             if (mainApp.getConverter().convertClientVO(clientVO).equals(selectClient)){
-                model.editClienteVO(clientVO, selectClient.getDni());
                 // Nothing changed.
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
@@ -176,6 +175,7 @@ public class MainVIewController {
                         break;
                     }
                 }
+                model.editClienteVO(clientVO, selectClient.getDni());
                 selectClient = mainApp.getConverter().convertClientVO(clientVO);
                 clientTable.getSelectionModel().select(selectClient);
                 ivCheckEdit.setVisible(true); // Muestra imagen de modificado

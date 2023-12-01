@@ -1,0 +1,7 @@
+module:com.gestionhoteles
+com.gestionhoteles
+com.gestionhoteles.controller
+com.gestionhoteles.model
+com.gestionhoteles.model.repository
+com.gestionhoteles.model.repository.impl
+com.gestionhoteles.util

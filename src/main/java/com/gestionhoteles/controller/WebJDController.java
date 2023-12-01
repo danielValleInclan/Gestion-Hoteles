@@ -26,7 +26,7 @@ public class WebJDController {
         WebEngine webEngine = webView.getEngine();
 
         String indexPathWindows = "ruta windos"; // no tengo windows
-        String indexPathLinux = "/home/daniel/dam/Gestion-Hoteles/src/main/java/com/gestionhoteles/docs/index.html";
+        String indexPathLinux = "/home/usuario/workspace/Gestion-Hoteles/src/main/java/com/gestionhoteles/docs/index.html";
 
         File indexFile = new File(indexPathLinux);
         if (indexFile.exists()) {
